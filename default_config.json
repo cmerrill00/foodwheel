@@ -13,7 +13,10 @@
       "website": "mcdonalds.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-bk",
@@ -22,7 +25,10 @@
       "website": "bk.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-wen",
@@ -31,7 +37,10 @@
       "website": "wendys.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-cfa",
@@ -40,7 +49,10 @@
       "website": "chick-fil-a.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tb",
@@ -49,7 +61,10 @@
       "website": "tacobell.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-arb",
@@ -58,7 +73,10 @@
       "website": "arbys.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-son",
@@ -67,7 +85,10 @@
       "website": "sonicdrivein.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-dq",
@@ -76,7 +97,10 @@
       "website": "dairyqueen.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pop",
@@ -85,7 +109,10 @@
       "website": "popeyes.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-kfc",
@@ -94,7 +121,10 @@
       "website": "kfc.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-5g",
@@ -103,7 +133,10 @@
       "website": "fiveguys.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-rr",
@@ -112,7 +145,10 @@
       "website": "redrobin.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-sub",
@@ -121,7 +157,10 @@
       "website": "subway.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-jj",
@@ -130,7 +169,10 @@
       "website": "jimmyjohns.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-jm",
@@ -139,7 +181,10 @@
       "website": "jerseymikes.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pan",
@@ -148,7 +193,10 @@
       "website": "panerabread.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-chp",
@@ -157,7 +205,10 @@
       "website": "chipotle.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-qdb",
@@ -166,7 +217,10 @@
       "website": "qdoba.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-ph",
@@ -175,7 +229,10 @@
       "website": "pizzahut.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-dom",
@@ -184,7 +241,10 @@
       "website": "dominos.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pj",
@@ -193,7 +253,10 @@
       "website": "papajohns.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pex",
@@ -202,7 +265,10 @@
       "website": "pandaexpress.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-app",
@@ -211,7 +277,10 @@
       "website": "applebees.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-chi",
@@ -220,7 +289,10 @@
       "website": "chilis.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-og",
@@ -229,7 +301,10 @@
       "website": "olivegarden.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tgif",
@@ -238,7 +313,10 @@
       "website": "tgifridays.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-bww",
@@ -247,7 +325,10 @@
       "website": "buffalowildwings.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tcf",
@@ -256,7 +337,10 @@
       "website": "thecheesecakefactory.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-out",
@@ -265,7 +349,10 @@
       "website": "outback.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-txr",
@@ -274,7 +361,10 @@
       "website": "texasroadhouse.com",
       "driveThru": false,
       "onlineOrder": false,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-rl",
@@ -283,7 +373,10 @@
       "website": "redlobster.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-ihop",
@@ -292,7 +385,10 @@
       "website": "ihop.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-den",
@@ -301,7 +397,10 @@
       "website": "dennys.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-cb",
@@ -310,7 +409,435 @@
       "website": "crackerbarrel.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
+    },
+    {
+      "id": "cah-spagbol",
+      "mode": "cookAtHome",
+      "name": "Spaghetti Bolognese",
+      "category": "Pasta",
+      "weight": 100,
+      "cookTime": 45,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "1 lb ground beef\n1/2 lb Italian sausage\n1 can (28 oz) crushed tomatoes\n1 small onion, diced\n4 cloves garlic, minced\n1/2 cup red wine (optional)\n2 tbsp olive oil\n1 tsp dried oregano\n1 tsp dried basil\nSalt and pepper to taste\n1 lb spaghetti\nParmesan cheese for serving",
+      "instructions": "1. Cook spaghetti according to package directions.\n2. Heat olive oil in a large pan over medium-high heat.\n3. Brown beef and sausage, breaking apart. Drain excess fat.\n4. Add onion and garlic, cook 3-4 minutes until softened.\n5. Pour in red wine and let reduce 2 minutes.\n6. Add crushed tomatoes, oregano, basil, salt, and pepper.\n7. Simmer on low 20-25 minutes, stirring occasionally.\n8. Serve over spaghetti topped with Parmesan.",
+      "notes": "The sauce freezes well for up to 3 months. Ground turkey works as a lighter substitute. A pinch of red pepper flakes adds a nice kick."
+    },
+    {
+      "id": "cah-grilchx",
+      "mode": "cookAtHome",
+      "name": "Grilled Chicken Breast",
+      "category": "Chicken",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": true,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "4 boneless, skinless chicken breasts\n3 tbsp olive oil\n1 tsp garlic powder\n1 tsp smoked paprika\n1 tsp onion powder\n1/2 tsp cumin\nSalt and pepper to taste\nJuice of 1 lemon",
+      "instructions": "1. Pound chicken breasts to even thickness (~3/4 inch).\n2. Mix olive oil, garlic powder, paprika, onion powder, cumin, salt, and pepper.\n3. Coat chicken in marinade and let sit 15-30 minutes.\n4. Preheat grill to medium-high heat.\n5. Grill 6-7 minutes per side until internal temp reaches 165\u00b0F.\n6. Squeeze lemon juice over chicken and rest 5 minutes before slicing.",
+      "notes": "Pounding to even thickness is the most important step \u2014 prevents dry edges and undercooked centers. Great for meal prep; stores in the fridge for 4 days. Pairs well with rice, salad, or roasted vegetables."
+    },
+    {
+      "id": "cah-tacos",
+      "mode": "cookAtHome",
+      "name": "Beef Tacos",
+      "category": "Mexican",
+      "weight": 100,
+      "cookTime": 25,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb ground beef\n1 packet taco seasoning (or homemade)\n2/3 cup water\n8-10 taco shells or flour tortillas\nToppings: shredded cheese, sour cream, salsa, lettuce, diced tomato, avocado",
+      "instructions": "1. Brown ground beef in a skillet over medium-high heat. Drain fat.\n2. Add taco seasoning and water. Stir to combine.\n3. Simmer 5-7 minutes until liquid reduces and mixture thickens.\n4. Warm taco shells in oven at 350\u00b0F for 5 minutes, or heat tortillas in a dry pan.\n5. Fill shells with meat and desired toppings.",
+      "notes": "Homemade seasoning: 1 tbsp chili powder, 1 tsp cumin, 1 tsp garlic powder, 1/2 tsp paprika, 1/4 tsp oregano, salt and pepper. Works great with ground turkey or chicken too."
+    },
+    {
+      "id": "cah-bfstew",
+      "mode": "cookAtHome",
+      "name": "Slow Cooker Beef Stew",
+      "category": "Comfort Food",
+      "weight": 100,
+      "cookTime": 480,
+      "quick": false,
+      "slowCook": true,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "2 lbs beef stew meat, cut into 1-inch cubes\n3 medium potatoes, cubed\n3 carrots, sliced\n2 stalks celery, sliced\n1 medium onion, diced\n3 cloves garlic, minced\n2 cups beef broth\n1 can (6 oz) tomato paste\n1 tbsp Worcestershire sauce\n1 tsp dried thyme\n1 tsp dried rosemary\nSalt and pepper to taste\n2 tbsp cornstarch + 2 tbsp water (optional, to thicken)",
+      "instructions": "1. Season beef with salt and pepper.\n2. Add beef, potatoes, carrots, celery, onion, and garlic to slow cooker.\n3. Whisk together broth, tomato paste, Worcestershire, thyme, and rosemary.\n4. Pour over ingredients in slow cooker.\n5. Cook on LOW 8-10 hours or HIGH 4-5 hours.\n6. If desired, stir in cornstarch slurry in the last 30 minutes to thicken.",
+      "notes": "Browning the beef in a skillet before adding to the slow cooker builds richer flavor \u2014 not required but worth it. Leftovers taste even better the next day. Can add mushrooms or peas in the last hour."
+    },
+    {
+      "id": "cah-pizza",
+      "mode": "cookAtHome",
+      "name": "Homemade Pizza",
+      "category": "Italian",
+      "weight": 100,
+      "cookTime": 50,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb pizza dough (store-bought or homemade)\n1/2 cup pizza sauce\n2 cups shredded mozzarella\nToppings of choice: pepperoni, bell peppers, mushrooms, onions, olives\n1 tbsp olive oil\n1 tsp garlic powder\n1 tsp Italian seasoning",
+      "instructions": "1. Preheat oven to 475\u00b0F. Place pizza stone or inverted baking sheet inside to heat.\n2. On a floured surface, stretch dough to desired size.\n3. Brush edges with olive oil and sprinkle with garlic powder.\n4. Spread sauce evenly, leaving a 1-inch border.\n5. Add cheese and toppings.\n6. Carefully transfer to hot baking surface.\n7. Bake 10-14 minutes until crust is golden and cheese is bubbly.",
+      "notes": "A preheated baking surface gives a much crispier crust. Cornmeal on the surface prevents sticking and slides the pizza off easily. Dough stretches better at room temperature \u2014 rest it out of the fridge for 20 minutes first."
+    },
+    {
+      "id": "cah-stirfry",
+      "mode": "cookAtHome",
+      "name": "Chicken Stir Fry",
+      "category": "Asian",
+      "weight": 100,
+      "cookTime": 25,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb chicken breast, thinly sliced\n2 cups broccoli florets\n1 red bell pepper, sliced\n1 cup snap peas\n2 cloves garlic, minced\n1 tbsp fresh ginger, grated\n3 tbsp soy sauce\n1 tbsp oyster sauce\n1 tsp sesame oil\n1 tbsp cornstarch\n2 tbsp vegetable oil\nCooked rice for serving",
+      "instructions": "1. Toss chicken with 1 tbsp soy sauce and cornstarch. Set aside.\n2. Mix remaining soy sauce, oyster sauce, and sesame oil in a small bowl.\n3. Heat 1 tbsp oil in wok or large skillet over high heat.\n4. Cook chicken 3-4 minutes until golden. Remove.\n5. Add remaining oil, cook garlic and ginger 30 seconds.\n6. Add vegetables and stir fry 3-4 minutes until tender-crisp.\n7. Return chicken, pour in sauce, toss everything together.\n8. Serve over rice.",
+      "notes": "High heat is essential \u2014 don't crowd the pan or everything will steam instead of fry. Slice chicken while partially frozen for thinner, more uniform pieces. Substitute any vegetables you have on hand."
+    },
+    {
+      "id": "cah-mac",
+      "mode": "cookAtHome",
+      "name": "Baked Mac and Cheese",
+      "category": "Comfort Food",
+      "weight": 100,
+      "cookTime": 45,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb elbow macaroni\n4 tbsp butter\n1/4 cup all-purpose flour\n2 1/2 cups whole milk\n1 cup heavy cream\n2 cups shredded sharp cheddar\n1 cup shredded Gruyere (or extra cheddar)\n1/2 tsp mustard powder\n1/4 tsp cayenne pepper\nSalt and pepper\n1/2 cup panko breadcrumbs\n2 tbsp melted butter",
+      "instructions": "1. Preheat oven to 375\u00b0F. Cook pasta just shy of al dente, drain.\n2. Melt butter in saucepan, whisk in flour and cook 1-2 minutes.\n3. Gradually whisk in milk and cream. Cook until thickened, ~5 minutes.\n4. Remove from heat, stir in cheeses, mustard powder, cayenne, salt, and pepper.\n5. Combine sauce with pasta. Pour into greased 9x13 baking dish.\n6. Mix panko with melted butter, sprinkle over top.\n7. Bake 25-30 minutes until bubbly and golden on top.",
+      "notes": "Don't overcook the pasta before baking \u2014 it continues cooking in the oven. Adding a layer of cheese in the middle (not just on top) makes it even creamier. Can be assembled the day before and refrigerated overnight before baking."
+    },
+    {
+      "id": "cah-pancake",
+      "mode": "cookAtHome",
+      "name": "Pancakes",
+      "category": "Breakfast",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "2 cups all-purpose flour\n2 tbsp sugar\n2 tsp baking powder\n1/2 tsp baking soda\n1/2 tsp salt\n2 cups buttermilk (or milk + 2 tbsp white vinegar)\n2 eggs\n3 tbsp melted butter\n1 tsp vanilla extract\nButter or oil for the pan",
+      "instructions": "1. Whisk together flour, sugar, baking powder, baking soda, and salt.\n2. In a separate bowl, whisk buttermilk, eggs, melted butter, and vanilla.\n3. Pour wet ingredients into dry. Stir until just combined \u2014 lumps are fine.\n4. Let batter rest 5 minutes.\n5. Heat pan over medium heat with a small pat of butter.\n6. Pour ~1/4 cup batter per pancake.\n7. Cook until bubbles form and edges look set, 2-3 minutes.\n8. Flip and cook 1-2 more minutes until golden.",
+      "notes": "Don't overmix \u2014 a lumpy batter makes fluffier pancakes. Resting activates the baking powder and relaxes the gluten. Keep finished pancakes warm in a 200\u00b0F oven on a baking sheet while cooking the rest."
+    },
+    {
+      "id": "cah-chili",
+      "mode": "cookAtHome",
+      "name": "Slow Cooker Chili",
+      "category": "Comfort Food",
+      "weight": 100,
+      "cookTime": 480,
+      "quick": false,
+      "slowCook": true,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "2 lbs ground beef or turkey\n2 cans (15 oz) kidney beans, drained\n1 can (28 oz) diced tomatoes\n1 can (6 oz) tomato paste\n1 medium onion, diced\n1 green bell pepper, diced\n4 cloves garlic, minced\n2 tbsp chili powder\n1 tsp cumin\n1 tsp smoked paprika\n1/2 tsp cayenne (adjust to taste)\nSalt and pepper\nToppings: sour cream, cheddar, green onions",
+      "instructions": "1. Brown meat in a skillet and drain fat.\n2. Add all ingredients to slow cooker and stir to combine.\n3. Cook on LOW 6-8 hours or HIGH 3-4 hours.\n4. Taste and adjust seasoning before serving.\n5. Serve with desired toppings.",
+      "notes": "Gets better the longer it cooks and even better as leftovers. Freezes beautifully for up to 3 months. Add a square of dark chocolate in the last hour for surprising depth of flavor."
+    },
+    {
+      "id": "cah-bkdchx",
+      "mode": "cookAtHome",
+      "name": "Baked Chicken Thighs",
+      "category": "Chicken",
+      "weight": 100,
+      "cookTime": 45,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "6 bone-in, skin-on chicken thighs\n2 tbsp olive oil\n1 tsp garlic powder\n1 tsp onion powder\n1 tsp smoked paprika\n1 tsp dried Italian seasoning\n1/2 tsp salt\n1/2 tsp black pepper",
+      "instructions": "1. Preheat oven to 425\u00b0F.\n2. Pat chicken dry with paper towels.\n3. Mix olive oil and all seasonings into a paste.\n4. Rub all over chicken, including under the skin.\n5. Place skin-side up on a rimmed baking sheet.\n6. Bake 35-45 minutes until skin is crispy and internal temp reaches 165\u00b0F.\n7. Rest 5 minutes before serving.",
+      "notes": "Patting the skin dry is the most important step for crispy skin. Bone-in thighs are much more forgiving than breasts \u2014 they stay juicy even if slightly overcooked. The drippings are great for roasting vegetables on the same pan."
+    },
+    {
+      "id": "cah-friedrice",
+      "mode": "cookAtHome",
+      "name": "Shrimp Fried Rice",
+      "category": "Asian",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "1 lb shrimp, peeled and deveined\n3 cups cooked rice (day-old works best)\n3 eggs\n1 cup frozen peas and carrots\n3 green onions, sliced\n3 cloves garlic, minced\n3 tbsp soy sauce\n1 tbsp oyster sauce\n1 tsp sesame oil\n2 tbsp vegetable oil",
+      "instructions": "1. Heat 1 tbsp oil in large wok or skillet over high heat.\n2. Cook shrimp 1-2 minutes per side until pink. Remove.\n3. Add remaining oil, scramble eggs until just set. Push to side.\n4. Add garlic and cook 30 seconds.\n5. Add rice and press into pan, cook 2 minutes undisturbed to crisp.\n6. Stir in peas and carrots, soy sauce, and oyster sauce.\n7. Return shrimp, drizzle sesame oil, add green onions. Toss and serve.",
+      "notes": "Day-old rice is essential \u2014 fresh rice is too moist and clumps badly. If using fresh, spread on a baking sheet and refrigerate for at least 1 hour. Prep everything before you start \u2014 the cooking goes very fast."
+    },
+    {
+      "id": "cah-salmon",
+      "mode": "cookAtHome",
+      "name": "Grilled Salmon",
+      "category": "Seafood",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": true,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "4 salmon fillets (6 oz each)\n3 tbsp olive oil\n2 tbsp soy sauce\n1 tbsp lemon juice\n2 cloves garlic, minced\n1 tsp honey\n1 tsp Dijon mustard\nSalt and pepper\nFresh dill or parsley for garnish",
+      "instructions": "1. Mix olive oil, soy sauce, lemon juice, garlic, honey, and mustard.\n2. Marinate salmon in mixture 15-30 minutes.\n3. Preheat grill to medium-high. Clean and oil grates well.\n4. Place salmon skin-side up, grill 3-4 minutes.\n5. Flip carefully and grill 3-4 more minutes until fish flakes easily.\n6. Garnish with fresh herbs and lemon wedges.",
+      "notes": "Don't move the salmon while cooking on the first side \u2014 it will release naturally when ready to flip. Done at 125-130\u00b0F for medium, 145\u00b0F for well-done. Works equally well in a cast iron skillet or under the broiler."
+    },
+    {
+      "id": "cah-caesar",
+      "mode": "cookAtHome",
+      "name": "Caesar Salad",
+      "category": "Salad",
+      "weight": 100,
+      "cookTime": 15,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": true,
+      "ingredients": "2 romaine lettuce heads, chopped\n1/2 cup Caesar dressing\n1/2 cup shaved Parmesan\n1-2 cups croutons\nLemon wedges for serving\n\nFor homemade dressing:\n1/2 cup mayo\n2 tbsp lemon juice\n2 tsp Worcestershire sauce\n1 tsp Dijon mustard\n2 cloves garlic, minced\n1/4 cup Parmesan, grated\nSalt and pepper",
+      "instructions": "1. Wash and dry lettuce thoroughly. Chop into bite-sized pieces.\n2. If making dressing: whisk together mayo, lemon juice, Worcestershire, mustard, garlic, and Parmesan.\n3. Toss lettuce with dressing until evenly coated.\n4. Top with Parmesan, croutons, and a squeeze of lemon.\n5. Serve immediately.",
+      "notes": "Add dressing just before serving to keep the lettuce crisp. Homemade dressing keeps in the fridge for up to a week. Add grilled chicken or shrimp to make it a complete meal."
+    },
+    {
+      "id": "cah-lasagna",
+      "mode": "cookAtHome",
+      "name": "Lasagna",
+      "category": "Italian",
+      "weight": 100,
+      "cookTime": 90,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb ground beef\n1/2 lb Italian sausage\n1 jar (25 oz) marinara sauce\n1 can (14 oz) diced tomatoes\n15 oz ricotta cheese\n2 eggs\n2 tbsp fresh parsley, chopped\n3 cups shredded mozzarella\n1/2 cup Parmesan cheese\n12 lasagna noodles, cooked\nSalt, pepper, Italian seasoning",
+      "instructions": "1. Preheat oven to 375\u00b0F.\n2. Brown meat, drain fat. Add marinara and diced tomatoes. Simmer 10 minutes.\n3. Mix ricotta, eggs, parsley, salt, and pepper.\n4. Spread a thin layer of meat sauce in a 9x13 baking dish.\n5. Layer: noodles, ricotta mixture, meat sauce, mozzarella. Repeat.\n6. End with meat sauce and mozzarella on top. Sprinkle with Parmesan.\n7. Cover tightly with foil. Bake 45 minutes covered, then 15 minutes uncovered until bubbly.\n8. Rest 15 minutes before cutting.",
+      "notes": "Resting before cutting is crucial \u2014 it firms up so it doesn't fall apart. Assemble the night before and refrigerate to improve flavor. Freezes very well before or after baking. No-boil noodles work if the sauce is extra saucy."
+    },
+    {
+      "id": "cah-chxsoup",
+      "mode": "cookAtHome",
+      "name": "Chicken Noodle Soup",
+      "category": "Soup",
+      "weight": 100,
+      "cookTime": 60,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "1 rotisserie chicken, shredded (or 2 lbs chicken breasts)\n8 cups chicken broth\n3 carrots, sliced\n3 stalks celery, sliced\n1 medium onion, diced\n4 cloves garlic, minced\n2 cups egg noodles\n2 tbsp olive oil\n1 tsp dried thyme\n1 bay leaf\nSalt and pepper\nFresh parsley for serving",
+      "instructions": "1. Heat olive oil in large pot over medium heat.\n2. Cook onion, carrots, and celery until softened, about 5 minutes.\n3. Add garlic and cook 1 minute.\n4. Pour in broth, add thyme and bay leaf. Bring to a boil.\n5. If using raw chicken, add now and simmer 20 minutes, then shred.\n6. Add noodles and cook until tender, about 8 minutes.\n7. Stir in shredded chicken. Remove bay leaf.\n8. Season with salt and pepper. Garnish with parsley.",
+      "notes": "Rotisserie chicken is a great time-saver. Add noodles only when ready to eat \u2014 they absorb broth in leftovers and get mushy. Store extra soup without noodles and cook fresh ones when reheating."
+    },
+    {
+      "id": "cah-burgers",
+      "mode": "cookAtHome",
+      "name": "Beef Burgers",
+      "category": "Burgers",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": true,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1.5 lbs ground beef (80/20 blend)\n1 tsp garlic powder\n1 tsp onion powder\n1 tsp Worcestershire sauce\nSalt and pepper\n4 burger buns, toasted\nToppings: cheese, lettuce, tomato, onion, pickles, condiments",
+      "instructions": "1. Mix beef with garlic powder, onion powder, and Worcestershire. Don't overwork.\n2. Divide into 4 equal portions. Shape into patties slightly wider than the bun.\n3. Press a shallow indentation in the center of each patty.\n4. Season generously with salt and pepper on both sides.\n5. Grill or cook in cast iron over high heat, 3-4 minutes per side.\n6. Add cheese in the last minute if desired.\n7. Rest 2 minutes before serving on toasted buns.",
+      "notes": "80/20 fat content is ideal \u2014 leaner beef makes dry burgers. The center indentation prevents the patty from puffing into a dome. Never press down while cooking \u2014 it squeezes out all the juices."
+    },
+    {
+      "id": "cah-pulledpork",
+      "mode": "cookAtHome",
+      "name": "Pulled Pork",
+      "category": "BBQ",
+      "weight": 100,
+      "cookTime": 480,
+      "quick": false,
+      "slowCook": true,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "4-5 lb pork shoulder (bone-in or boneless)\n2 tbsp brown sugar\n1 tbsp smoked paprika\n1 tbsp garlic powder\n1 tbsp onion powder\n1 tsp cumin\n1 tsp black pepper\n2 tsp salt\n1 tsp cayenne\n1/2 cup apple cider vinegar\n1/2 cup chicken broth\nBBQ sauce for serving\nBuns or rolls",
+      "instructions": "1. Mix all dry spices into a rub.\n2. Rub generously all over pork. Refrigerate overnight if possible.\n3. Place pork in slow cooker. Add vinegar and broth.\n4. Cook on LOW 8-10 hours until meat is fall-apart tender.\n5. Remove pork and shred with two forks, discarding large fat pieces.\n6. Skim fat from cooking juices. Return meat with juices and BBQ sauce to taste.\n7. Serve on buns.",
+      "notes": "An overnight dry rub makes a significant difference in flavor. Very hard to overcook on LOW \u2014 longer is almost always better. Freezes well shredded. Also great on nachos, baked potatoes, or rice bowls."
+    },
+    {
+      "id": "cah-fajitas",
+      "mode": "cookAtHome",
+      "name": "Chicken Fajitas",
+      "category": "Mexican",
+      "weight": 100,
+      "cookTime": 25,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": true,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1.5 lbs chicken breast or thighs, sliced into strips\n3 bell peppers (mixed colors), sliced\n1 large onion, sliced\n3 tbsp olive oil\n2 tbsp lime juice\n1 tsp chili powder\n1 tsp cumin\n1 tsp garlic powder\n1/2 tsp smoked paprika\nSalt and pepper\nFlour or corn tortillas\nToppings: sour cream, guacamole, salsa, shredded cheese",
+      "instructions": "1. Toss chicken with 1 tbsp oil, lime juice, and all seasonings. Marinate 20 minutes.\n2. Heat remaining oil in cast iron skillet or grill over high heat.\n3. Cook chicken strips 4-5 minutes until cooked through. Remove.\n4. Add peppers and onion, cook 4-5 minutes until slightly charred.\n5. Return chicken to pan and toss with vegetables.\n6. Serve immediately in warm tortillas with toppings.",
+      "notes": "High heat is key for that restaurant-style char on the vegetables. Cast iron gives the best caramelization. Warm tortillas wrapped in foil in a 300\u00b0F oven for 10 minutes. Thighs are more flavorful and forgiving than breasts here."
+    },
+    {
+      "id": "cah-curry",
+      "mode": "cookAtHome",
+      "name": "Vegetable Curry",
+      "category": "Asian",
+      "weight": 100,
+      "cookTime": 40,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": true,
+      "noCook": false,
+      "ingredients": "2 cans (15 oz) chickpeas, drained\n1 can (14 oz) coconut milk\n1 can (14 oz) diced tomatoes\n2 cups cauliflower florets\n1 cup frozen peas\n1 medium onion, diced\n4 cloves garlic, minced\n1 tbsp fresh ginger, grated\n2 tbsp curry powder\n1 tsp turmeric\n1 tsp cumin\n2 tbsp vegetable oil\nSalt to taste\nCooked rice and naan for serving\nFresh cilantro for garnish",
+      "instructions": "1. Heat oil in large pot over medium heat.\n2. Cook onion until softened, about 5 minutes.\n3. Add garlic and ginger, cook 1 minute.\n4. Stir in curry powder, turmeric, and cumin. Cook 1 minute until fragrant.\n5. Add tomatoes, coconut milk, chickpeas, and cauliflower.\n6. Simmer 20-25 minutes until cauliflower is tender.\n7. Stir in peas, cook 3 more minutes.\n8. Taste and adjust salt. Serve over rice with naan and cilantro.",
+      "notes": "Toasting the spices in the oil before adding liquids builds depth of flavor. Can add spinach or sweet potato. Tastes better the next day. Keeps in the fridge for 4 days and freezes well."
+    },
+    {
+      "id": "cah-frenchtst",
+      "mode": "cookAtHome",
+      "name": "French Toast",
+      "category": "Breakfast",
+      "weight": 100,
+      "cookTime": 20,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "6 thick slices brioche or challah (day-old is best)\n3 eggs\n3/4 cup whole milk or half-and-half\n1 tsp vanilla extract\n1/2 tsp cinnamon\n1 tbsp sugar\nPinch of nutmeg\nButter for the pan\nToppings: maple syrup, powdered sugar, fresh berries",
+      "instructions": "1. Whisk together eggs, milk, vanilla, cinnamon, sugar, and nutmeg.\n2. Heat pan over medium heat with a pat of butter.\n3. Dip each bread slice in egg mixture, soaking 10-15 seconds per side.\n4. Cook 2-3 minutes per side until golden brown.\n5. Keep warm in a 200\u00b0F oven while cooking remaining slices.\n6. Serve with syrup, powdered sugar, and berries.",
+      "notes": "Thick bread like brioche or Texas toast is key \u2014 thin sandwich bread goes soggy. Day-old bread absorbs the custard better without falling apart. For a crowd, bake on a greased sheet at 375\u00b0F for 20 minutes instead of pan-cooking each piece."
+    },
+    {
+      "id": "cah-blt",
+      "mode": "cookAtHome",
+      "name": "BLT Sandwich",
+      "category": "Sandwiches",
+      "weight": 100,
+      "cookTime": 15,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "8 strips bacon\n4 slices sourdough or thick-cut bread\n2 roma tomatoes, sliced\n4 romaine or iceberg lettuce leaves\n4 tbsp mayonnaise\nSalt and pepper",
+      "instructions": "1. Cook bacon until crispy \u2014 in a skillet, or oven at 400\u00b0F for 15-18 minutes.\n2. Drain on paper towels.\n3. Toast bread to desired level.\n4. Spread mayo generously on both slices.\n5. Layer lettuce, then tomato (lightly salted), then bacon.\n6. Top with second slice. Cut diagonally and serve.",
+      "notes": "Salt the tomato slices and let them sit 1-2 minutes to draw out moisture and intensify flavor. Oven bacon is the most hands-off and cooks evenly. Adding a fried egg and avocado makes a BLAT \u2014 highly recommended."
+    },
+    {
+      "id": "cah-bakepot",
+      "mode": "cookAtHome",
+      "name": "Loaded Baked Potatoes",
+      "category": "Comfort Food",
+      "weight": 100,
+      "cookTime": 60,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "4 large russet potatoes\n2 tbsp olive oil\nCoarse salt\nToppings: butter, sour cream, shredded cheddar, bacon bits, chives",
+      "instructions": "1. Preheat oven to 425\u00b0F.\n2. Scrub potatoes and dry thoroughly.\n3. Pierce all over with a fork.\n4. Rub with olive oil and coat generously with coarse salt.\n5. Place directly on oven rack (not a baking sheet).\n6. Bake 50-60 minutes until fork-tender with no resistance.\n7. Cut a slit across the top, squeeze sides to open up.\n8. Add desired toppings and serve.",
+      "notes": "Placing directly on the rack (not a sheet) ensures crispy skin all around. Never wrap in foil \u2014 it steams the potato and makes the skin soft. A potato is done when a fork slides in with zero resistance."
+    },
+    {
+      "id": "cah-meatball",
+      "mode": "cookAtHome",
+      "name": "Turkey Meatballs",
+      "category": "Italian",
+      "weight": 100,
+      "cookTime": 35,
+      "quick": false,
+      "slowCook": false,
+      "ovenBake": true,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1.5 lbs ground turkey\n1/3 cup breadcrumbs\n1/4 cup Parmesan cheese, grated\n1 egg\n3 cloves garlic, minced\n2 tbsp fresh parsley, chopped\n1 tsp Italian seasoning\n1/2 tsp salt\n1/4 tsp black pepper\nOlive oil for brushing\nMarinara sauce for serving",
+      "instructions": "1. Preheat oven to 400\u00b0F. Line baking sheet with parchment.\n2. Mix all ingredients until just combined \u2014 don't overwork.\n3. Form into 1.5-inch balls (~24 meatballs). Wet hands help prevent sticking.\n4. Place on baking sheet and brush lightly with olive oil.\n5. Bake 18-22 minutes until cooked through (165\u00b0F internal temp).\n6. Add to warmed marinara sauce or serve as desired.",
+      "notes": "Don't overwork the mixture \u2014 makes them tough. These are lighter than beef meatballs. Freeze well raw or cooked. Great in subs, over pasta, or as an appetizer with toothpicks and dipping sauce."
+    },
+    {
+      "id": "cah-caprese",
+      "mode": "cookAtHome",
+      "name": "Caprese Salad",
+      "category": "Salad",
+      "weight": 100,
+      "cookTime": 10,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": true,
+      "ingredients": "3 large ripe tomatoes, sliced\n8 oz fresh mozzarella, sliced\nFresh basil leaves\n3 tbsp extra virgin olive oil\n1 tbsp balsamic glaze\nFlaky sea salt\nFresh cracked black pepper",
+      "instructions": "1. Arrange alternating slices of tomato and mozzarella on a platter.\n2. Tuck fresh basil leaves between the slices.\n3. Drizzle generously with olive oil and balsamic glaze.\n4. Sprinkle with flaky sea salt and fresh black pepper.\n5. Serve immediately at room temperature.",
+      "notes": "This lives or dies by ingredient quality \u2014 use the ripest tomatoes available and real fresh mozzarella (not low-moisture block). Don't refrigerate tomatoes before serving \u2014 they lose flavor and texture. Best in summer when tomatoes are at peak."
+    },
+    {
+      "id": "cah-alfredo",
+      "mode": "cookAtHome",
+      "name": "Chicken Alfredo",
+      "category": "Pasta",
+      "weight": 100,
+      "cookTime": 30,
+      "quick": true,
+      "slowCook": false,
+      "ovenBake": false,
+      "grill": false,
+      "onePot": false,
+      "noCook": false,
+      "ingredients": "1 lb fettuccine\n1.5 lbs chicken breast\n4 tbsp butter\n4 cloves garlic, minced\n2 cups heavy cream\n1.5 cups Parmesan cheese, freshly grated\nSalt and black pepper\n2 tbsp olive oil\nFresh parsley for garnish",
+      "instructions": "1. Cook pasta according to package directions. Reserve 1 cup pasta water before draining.\n2. Season chicken with salt and pepper. Cook in olive oil over medium-high heat, 6-7 minutes per side. Rest and slice.\n3. In the same pan, melt butter over medium heat.\n4. Add garlic and cook 1 minute.\n5. Pour in cream, bring to a gentle simmer.\n6. Reduce heat and stir in Parmesan until melted and smooth.\n7. Toss with pasta, adding pasta water as needed to loosen the sauce.\n8. Top with sliced chicken and fresh parsley.",
+      "notes": "Use freshly grated Parmesan \u2014 pre-shredded contains anti-caking agents that prevent smooth melting. The starchy pasta water is the secret to the right sauce consistency. Don't let the sauce boil after adding cheese or it may break and turn grainy."
     }
   ]
 }
