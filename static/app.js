@@ -54,6 +54,7 @@ const addEatoutFields      = document.getElementById("add-eatout-fields");
 const addCookAtHomeFields  = document.getElementById("add-cookathome-fields");
 const notesEatoutSection   = document.getElementById("notes-eatout-section");
 const notesCahSection      = document.getElementById("notes-cookathome-section");
+const notesPrintBtn        = document.getElementById("notes-print-btn");
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
@@ -195,6 +196,8 @@ function openNotesModal(food) {
     notesTextarea.value = food.notes || "";
   }
 
+  notesPrintBtn.classList.toggle("hidden", !isCah);
+
   notesModal.classList.remove("hidden");
   if (isCah) document.getElementById("notes-ingredients").focus();
   else notesTextarea.focus();
@@ -228,6 +231,54 @@ notesSaveBtn.addEventListener("click", async () => {
 
 notesCancelBtn.addEventListener("click", closeNotesModal);
 notesCloseBtn.addEventListener("click", closeNotesModal);
+
+notesPrintBtn.addEventListener("click", () => {
+  if (!currentNotesFood) return;
+  printRecipe(currentNotesFood);
+});
+
+function printRecipe(food) {
+  const ingredients  = document.getElementById("notes-ingredients").value  || "";
+  const instructions = document.getElementById("notes-instructions").value || "";
+  const notes        = document.getElementById("notes-general").value      || "";
+
+  const sec = (title, body) => body.trim()
+    ? `<h2>${title}</h2><div class="block">${body.trim().replace(/\n/g, "<br>")}</div>`
+    : "";
+
+  const meta = [
+    food.category ? `Category: ${food.category}` : "",
+    food.cookTime ? `Cook time: ${food.cookTime} min` : "",
+  ].filter(Boolean).join("&nbsp;&nbsp;·&nbsp;&nbsp;");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${food.name}</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 680px; margin: 2rem auto; padding: 0 1rem; color: #111; line-height: 1.6; }
+    h1 { font-size: 1.8rem; margin: 0 0 0.3rem; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 1.2rem; border-bottom: 2px solid #333; padding-bottom: 0.6rem; }
+    h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 1.4rem 0 0.4rem; border-bottom: 1px solid #ccc; padding-bottom: 0.2rem; }
+    .block { font-size: 0.95rem; white-space: pre-wrap; margin: 0; }
+    @media print { body { margin: 0.5in; } }
+  </style>
+</head>
+<body>
+  <h1>${food.name}</h1>
+  ${meta ? `<p class="meta">${meta}</p>` : ""}
+  ${sec("Ingredients", ingredients)}
+  ${sec("Instructions", instructions)}
+  ${sec("Notes", notes)}
+  <script>window.onload = function() { window.print(); }<\/script>
+</body>
+</html>`;
+
+  const win = window.open("", "_blank");
+  win.document.write(html);
+  win.document.close();
+}
 notesModal.addEventListener("click", e => { if (e.target === notesModal) closeNotesModal(); });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") {
@@ -524,8 +575,11 @@ function enterEditMode(li, food) {
   } else {
     const ctInput = document.createElement("input");
     ctInput.type = "number"; ctInput.min = "0"; ctInput.max = "999";
-    ctInput.value = food.cookTime || ""; ctInput.placeholder = "Cook time (mins)";
-    ctInput.className = "edit-input edit-cooktime";
+    ctInput.value = food.cookTime || ""; ctInput.placeholder = "0";
+    ctInput.className = "edit-cooktime";
+    const ctWrapper = document.createElement("div");
+    ctWrapper.className = "cook-time-input-label";
+    ctWrapper.append("Cook time: ", ctInput, " min");
 
     const flags = [
       ["quick", "⚡ Quick"], ["slowCook", "🕐 Slow Cook"], ["ovenBake", "🔆 Oven/Bake"],
@@ -558,7 +612,7 @@ function enterEditMode(li, food) {
     });
 
     li.innerHTML = ""; li.style.flexWrap = "wrap";
-    li.append(nameInput, catInput, saveBtn, cancelBtn, ctInput, checksDiv);
+    li.append(nameInput, catInput, saveBtn, cancelBtn, ctWrapper, checksDiv);
   }
 
   async function doSave() {
@@ -920,7 +974,7 @@ const exportBtn       = document.getElementById("export-btn");
 importBtn.addEventListener("click", () => importFile.click());
 
 loadDefaultsBtn.addEventListener("click", async () => {
-  if (!confirm("Load the default restaurant list?\n\nThis will replace your current Eat Out list and settings.")) return;
+  if (!confirm("Load the default list?\n\nThis will replace your current Eat Out and Cook at Home lists and settings.")) return;
 
   if (confirm("Would you like to export a backup of your current config first?")) {
     exportBtn.click();

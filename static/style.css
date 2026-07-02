@@ -572,7 +572,21 @@ a.food-name:hover { text-decoration: underline; }
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
+
+.notes-print-btn {
+  padding: 0.45rem 1rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: none;
+  color: #aaa;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.notes-print-btn:hover { border-color: #888; color: #fff; }
 
 #notes-save-btn {
   padding: 0.45rem 1.1rem;
