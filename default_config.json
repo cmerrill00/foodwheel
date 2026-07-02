@@ -13,7 +13,10 @@
       "website": "mcdonalds.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-bk",
@@ -22,7 +25,10 @@
       "website": "bk.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-wen",
@@ -31,7 +37,10 @@
       "website": "wendys.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-cfa",
@@ -40,7 +49,10 @@
       "website": "chick-fil-a.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tb",
@@ -49,7 +61,10 @@
       "website": "tacobell.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-arb",
@@ -58,7 +73,10 @@
       "website": "arbys.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-son",
@@ -67,7 +85,10 @@
       "website": "sonicdrivein.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-dq",
@@ -76,7 +97,10 @@
       "website": "dairyqueen.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pop",
@@ -85,7 +109,10 @@
       "website": "popeyes.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-kfc",
@@ -94,7 +121,10 @@
       "website": "kfc.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-5g",
@@ -103,7 +133,10 @@
       "website": "fiveguys.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-rr",
@@ -112,7 +145,10 @@
       "website": "redrobin.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-sub",
@@ -121,7 +157,10 @@
       "website": "subway.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-jj",
@@ -130,7 +169,10 @@
       "website": "jimmyjohns.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-jm",
@@ -139,7 +181,10 @@
       "website": "jerseymikes.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pan",
@@ -148,7 +193,10 @@
       "website": "panerabread.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-chp",
@@ -157,7 +205,10 @@
       "website": "chipotle.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-qdb",
@@ -166,7 +217,10 @@
       "website": "qdoba.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-ph",
@@ -175,7 +229,10 @@
       "website": "pizzahut.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-dom",
@@ -184,7 +241,10 @@
       "website": "dominos.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pj",
@@ -193,7 +253,10 @@
       "website": "papajohns.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": false
+      "dineIn": false,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-pex",
@@ -202,7 +265,10 @@
       "website": "pandaexpress.com",
       "driveThru": true,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-app",
@@ -211,7 +277,10 @@
       "website": "applebees.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-chi",
@@ -220,7 +289,10 @@
       "website": "chilis.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-og",
@@ -229,7 +301,10 @@
       "website": "olivegarden.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tgif",
@@ -238,7 +313,10 @@
       "website": "tgifridays.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-bww",
@@ -247,7 +325,10 @@
       "website": "buffalowildwings.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-tcf",
@@ -256,7 +337,10 @@
       "website": "thecheesecakefactory.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-out",
@@ -265,7 +349,10 @@
       "website": "outback.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-txr",
@@ -274,7 +361,10 @@
       "website": "texasroadhouse.com",
       "driveThru": false,
       "onlineOrder": false,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-rl",
@@ -283,7 +373,10 @@
       "website": "redlobster.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-ihop",
@@ -292,7 +385,10 @@
       "website": "ihop.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-den",
@@ -301,7 +397,10 @@
       "website": "dennys.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     },
     {
       "id": "def-cb",
@@ -310,7 +409,10 @@
       "website": "crackerbarrel.com",
       "driveThru": false,
       "onlineOrder": true,
-      "dineIn": true
+      "dineIn": true,
+      "mode": "eatOut",
+      "weight": 100,
+      "notes": ""
     }
   ]
 }

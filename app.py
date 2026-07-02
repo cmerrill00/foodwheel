@@ -60,25 +60,46 @@ def add_food():
     name = (body.get("name") or "").strip()
     if not name:
         return jsonify({"error": "Food name is required"}), 400
-    category     = (body.get("category") or "").strip()
-    website      = (body.get("website") or "").strip()
-    drive_thru   = bool(body.get("driveThru", False))
-    online_order = bool(body.get("onlineOrder", False))
-    dine_in      = bool(body.get("dineIn", False))
-    weight       = max(1, min(999, int(body.get("weight", 100))))
+
+    mode = body.get("mode", "eatOut")
+    if mode not in ("eatOut", "cookAtHome"):
+        mode = "eatOut"
+
+    category = (body.get("category") or "").strip()
+    weight   = max(1, min(999, int(body.get("weight", 100))))
+
+    food = {
+        "id":       uuid.uuid4().hex,
+        "mode":     mode,
+        "name":     name,
+        "category": category,
+        "weight":   weight,
+        "notes":    body.get("notes", ""),
+    }
+
+    if mode == "eatOut":
+        food.update({
+            "website":     (body.get("website") or "").strip(),
+            "driveThru":   bool(body.get("driveThru", False)),
+            "onlineOrder": bool(body.get("onlineOrder", False)),
+            "dineIn":      bool(body.get("dineIn", False)),
+        })
+    else:
+        food.update({
+            "cookTime":     max(0, int(body.get("cookTime", 0))),
+            "quick":        bool(body.get("quick", False)),
+            "slowCook":     bool(body.get("slowCook", False)),
+            "ovenBake":     bool(body.get("ovenBake", False)),
+            "grill":        bool(body.get("grill", False)),
+            "onePot":       bool(body.get("onePot", False)),
+            "noCook":       bool(body.get("noCook", False)),
+            "ingredients":  body.get("ingredients", ""),
+            "instructions": body.get("instructions", ""),
+        })
+
     with _lock:
         foods = load_foods()
-        foods.append({
-            "id": uuid.uuid4().hex,
-            "name": name,
-            "category": category,
-            "website": website,
-            "driveThru": drive_thru,
-            "onlineOrder": online_order,
-            "dineIn": dine_in,
-            "weight": weight,
-            "notes": "",
-        })
+        foods.append(food)
         save_foods(foods)
     return jsonify(load_foods()), 201
 
@@ -97,18 +118,28 @@ def edit_food(food_id):
                     food["name"] = name
                 if "category" in body:
                     food["category"] = body["category"].strip()
-                if "website" in body:
-                    food["website"] = body["website"].strip()
-                if "driveThru" in body:
-                    food["driveThru"] = bool(body["driveThru"])
-                if "onlineOrder" in body:
-                    food["onlineOrder"] = bool(body["onlineOrder"])
-                if "dineIn" in body:
-                    food["dineIn"] = bool(body["dineIn"])
                 if "weight" in body:
                     food["weight"] = max(1, min(999, int(body["weight"])))
                 if "notes" in body:
                     food["notes"] = body["notes"]
+
+                mode = food.get("mode", "eatOut")
+                if mode == "eatOut":
+                    if "website"     in body: food["website"]     = body["website"].strip()
+                    if "driveThru"   in body: food["driveThru"]   = bool(body["driveThru"])
+                    if "onlineOrder" in body: food["onlineOrder"] = bool(body["onlineOrder"])
+                    if "dineIn"      in body: food["dineIn"]      = bool(body["dineIn"])
+                else:
+                    if "cookTime"     in body: food["cookTime"]     = max(0, int(body["cookTime"]))
+                    if "quick"        in body: food["quick"]        = bool(body["quick"])
+                    if "slowCook"     in body: food["slowCook"]     = bool(body["slowCook"])
+                    if "ovenBake"     in body: food["ovenBake"]     = bool(body["ovenBake"])
+                    if "grill"        in body: food["grill"]        = bool(body["grill"])
+                    if "onePot"       in body: food["onePot"]       = bool(body["onePot"])
+                    if "noCook"       in body: food["noCook"]       = bool(body["noCook"])
+                    if "ingredients"  in body: food["ingredients"]  = body["ingredients"]
+                    if "instructions" in body: food["instructions"] = body["instructions"]
+
                 save_foods(foods)
                 return jsonify(food)
     return jsonify({"error": "Food not found"}), 404
@@ -138,11 +169,15 @@ def add_history():
     food_name = (body.get("foodName") or "").strip()
     if not food_name:
         return jsonify({"error": "foodName is required"}), 400
+    mode = body.get("mode", "eatOut")
+    if mode not in ("eatOut", "cookAtHome"):
+        mode = "eatOut"
     entry = {
-        "id": uuid.uuid4().hex,
-        "foodId": body.get("foodId", ""),
-        "foodName": food_name,
-        "pickedAt": datetime.now(timezone.utc).isoformat(),
+        "id":        uuid.uuid4().hex,
+        "mode":      mode,
+        "foodId":    body.get("foodId", ""),
+        "foodName":  food_name,
+        "pickedAt":  datetime.now(timezone.utc).isoformat(),
         "confirmed": False,
     }
     with _lock:

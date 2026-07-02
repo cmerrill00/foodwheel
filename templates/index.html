@@ -10,14 +10,20 @@
   <div class="container">
 
     <header>
-      <h1>What's for Dinner?</h1>
+      <h1 id="page-title">What's for Dinner?</h1>
       <div class="header-actions">
         <button id="help-toggle" title="Help &amp; features">?</button>
         <button id="settings-toggle" title="Settings">⚙</button>
       </div>
     </header>
 
-    <!-- Weighting settings panel -->
+    <!-- Mode toggle -->
+    <div class="mode-toggle">
+      <button id="mode-eatout-btn" class="mode-btn mode-btn-active">Eat Out</button>
+      <button id="mode-cookathome-btn" class="mode-btn">Cook at Home</button>
+    </div>
+
+    <!-- Settings panel -->
     <div id="settings-panel" class="settings-panel hidden">
       <h3>Weighting Settings</h3>
       <label class="toggle-row">
@@ -46,7 +52,7 @@
       </div>
     </div>
 
-    <!-- Category filter chips -->
+    <!-- Category / feature filter chips -->
     <div id="category-filters" class="category-filters"></div>
 
     <!-- Wheel -->
@@ -62,31 +68,57 @@
       <button id="mark-eaten-btn" class="hidden">Mark as Eaten</button>
     </div>
 
-    <!-- Food options -->
+    <!-- Food / Recipe list -->
     <div class="section-header">
-      <h2>Food Options</h2>
+      <h2 id="food-section-title">Food Options</h2>
       <button id="add-toggle-btn">+ Add Location</button>
     </div>
 
     <div id="add-food-panel" class="hidden">
       <div class="add-food">
+
+        <!-- Shared: name + category -->
         <div class="add-food-row">
-          <input id="food-name-input" type="text" placeholder="Food name..." maxlength="40">
+          <input id="food-name-input" type="text" placeholder="Name..." maxlength="40">
           <input id="food-cat-input" type="text" placeholder="Category (optional)" maxlength="30">
         </div>
-        <div class="add-food-row">
-          <input id="food-url-input" type="url" placeholder="Website URL (optional)">
+
+        <!-- Eat out specific -->
+        <div id="add-eatout-fields">
+          <div class="add-food-row">
+            <input id="food-url-input" type="url" placeholder="Website URL (optional)">
+          </div>
+          <div class="add-food-options">
+            <label><input type="checkbox" id="food-dt-input"> Drive-thru</label>
+            <label><input type="checkbox" id="food-oo-input"> Online ordering</label>
+            <label><input type="checkbox" id="food-di-input"> Dine-in only</label>
+          </div>
         </div>
+
+        <!-- Cook at home specific -->
+        <div id="add-cookathome-fields" class="hidden">
+          <div class="add-food-row">
+            <label class="cook-time-input-label">Cook time: <input type="number" id="food-cooktime-input" min="0" max="999" placeholder="0"> min</label>
+          </div>
+          <div class="add-food-options">
+            <label><input type="checkbox" id="food-quick-input"> ⚡ Quick</label>
+            <label><input type="checkbox" id="food-slowcook-input"> 🕐 Slow Cook</label>
+            <label><input type="checkbox" id="food-ovenbake-input"> 🔆 Oven/Bake</label>
+            <label><input type="checkbox" id="food-grill-input"> 🔥 Grill</label>
+            <label><input type="checkbox" id="food-onepot-input"> 🍲 One Pot</label>
+            <label><input type="checkbox" id="food-nocook-input"> 🥗 No Cook</label>
+          </div>
+        </div>
+
+        <!-- Shared: weight + actions -->
         <div class="add-food-options">
-          <label><input type="checkbox" id="food-dt-input"> Drive-thru</label>
-          <label><input type="checkbox" id="food-oo-input"> Online ordering</label>
-          <label><input type="checkbox" id="food-di-input"> Dine-in only</label>
           <label class="weight-label">Weight: <input type="number" id="food-weight-input" min="1" max="999" value="100">%</label>
         </div>
         <div class="add-food-row">
           <button id="add-btn">Add Location</button>
           <button id="add-cancel-btn" type="button">Cancel</button>
         </div>
+
       </div>
     </div>
 
@@ -98,8 +130,8 @@
     </div>
     <ul id="history-list"></ul>
 
-
   </div>
+
   <!-- Help modal -->
   <div id="help-modal" class="modal-overlay hidden">
     <div class="modal modal-help">
@@ -109,73 +141,84 @@
       </div>
       <div class="modal-body">
 
-        <h4>The Wheel</h4>
-        <p>The wheel randomly selects a meal from your list when you click <strong>Spin the Wheel</strong>. The yellow triangle at the top is the pointer — whatever it lands on is the result. The button stays disabled until you have at least two options added. If a category or feature filter is active, only the filtered options appear on the wheel.</p>
+        <h4>Eat Out vs. Cook at Home</h4>
+        <p>Use the <strong>Eat Out | Cook at Home</strong> toggle below the header to switch between two independent wheels. Each mode has its own food list, history, and filter chips. The settings panel applies to both modes.</p>
 
-        <h4>Adding Locations</h4>
-        <p>Click <strong>+ Add Location</strong> in the Food Options header to open the entry form. Available fields:</p>
+        <h4>The Wheel</h4>
+        <p>The wheel randomly selects from your list when you click <strong>Spin the Wheel</strong>. The yellow triangle at the top is the pointer — whatever it lands on is the result. The button stays disabled until you have at least two options. If a filter is active, only the filtered options appear on the wheel.</p>
+
+        <h4>Adding Entries</h4>
+        <p>Click the <strong>+ Add Location</strong> (Eat Out) or <strong>+ Add Recipe</strong> (Cook at Home) button to open the entry form.</p>
+        <p><strong>Eat Out fields:</strong></p>
         <ul>
-          <li><strong>Name</strong> — the restaurant or meal name (required)</li>
-          <li><strong>Category</strong> — an optional label for grouping, such as "Fast Food" or "Italian"</li>
-          <li><strong>Website URL</strong> — if provided, the name becomes a clickable link in your list; you can enter the URL with or without <em>https://</em></li>
-          <li><strong>Drive-thru</strong> — check if the location has a drive-thru</li>
-          <li><strong>Online ordering</strong> — check if online ordering is available</li>
-          <li><strong>Dine-in only</strong> — check if dine-in is the only option</li>
-          <li><strong>Weight %</strong> — controls how likely this entry is to be picked relative to others (default 100). A value of 200 makes it twice as likely; 50 makes it half as likely.</li>
+          <li><strong>Name</strong> — restaurant name (required)</li>
+          <li><strong>Category</strong> — optional grouping label, e.g. "Fast Food" or "Italian"</li>
+          <li><strong>Website URL</strong> — if provided, the name becomes a clickable link; <em>https://</em> is added automatically if omitted</li>
+          <li><strong>Drive-thru / Online ordering / Dine-in only</strong> — feature flags used for filtering</li>
+          <li><strong>Weight %</strong> — relative spin probability (default 100). 200 = twice as likely, 50 = half as likely.</li>
         </ul>
-        <p>Press <strong>Add Location</strong> to save or <strong>Cancel</strong> to close without saving.</p>
+        <p><strong>Cook at Home fields:</strong></p>
+        <ul>
+          <li><strong>Name</strong> — recipe or meal name (required)</li>
+          <li><strong>Category</strong> — optional grouping label, e.g. "Pasta" or "Soup"</li>
+          <li><strong>Cook time</strong> — estimated minutes; used for the time-range filter chips above the wheel</li>
+          <li><strong>⚡ Quick / 🕐 Slow Cook / 🔆 Oven/Bake / 🔥 Grill / 🍲 One Pot / 🥗 No Cook</strong> — feature flags for filtering</li>
+          <li><strong>Weight %</strong> — relative spin probability (default 100)</li>
+        </ul>
 
         <h4>Managing Your List</h4>
-        <p>Each entry shows three icons on the right side:</p>
+        <p>Each entry shows three icons on the right:</p>
         <ul>
-          <li><strong>📝</strong> — Opens the notes panel for that location. The icon turns gold when notes have been saved.</li>
-          <li><strong>✏️</strong> — Opens an inline editor for the name, category, URL, and all feature flags. Press Enter or the save icon to confirm, or ✕ to cancel.</li>
-          <li><strong>✕</strong> — Permanently removes the entry from your list.</li>
+          <li><strong>📝</strong> — Opens the notes panel. The icon turns gold when any notes content has been saved.</li>
+          <li><strong>✏️</strong> — Opens an inline editor for all fields. Press Enter or the save icon to confirm, or ✕ to cancel.</li>
+          <li><strong>✕</strong> — Permanently removes the entry.</li>
         </ul>
 
         <h4>Notes</h4>
-        <p>Click the 📝 icon on any entry to open its notes panel. Use it to record favorite dishes, past experiences, or anything that might influence your next decision. Notes are saved per location and persist across sessions. Click outside the panel, press Escape, or use the Cancel button to close without saving.</p>
+        <p>Click the 📝 icon on any entry to open its notes panel.</p>
+        <ul>
+          <li><strong>Eat Out:</strong> a single freeform text area for anything worth remembering — favorite dishes, past experiences, recommendations.</li>
+          <li><strong>Cook at Home:</strong> three labeled sections — <em>Ingredients</em>, <em>Instructions</em>, and <em>Notes</em>. Use them to store a full recipe alongside anything extra.</li>
+        </ul>
+        <p>Click outside the panel, press Escape, or use Cancel to close without saving.</p>
 
         <h4>Filtering the Wheel</h4>
-        <p>Two rows of filter chips appear above the wheel once you have categories or feature flags set:</p>
+        <p>Filter chips appear above the wheel once you have categories or feature flags set:</p>
         <ul>
-          <li><strong>Row 1 — Categories:</strong> Tap one or more category chips to limit the wheel to those groups. Multiple categories can be active at once (results from any selected category are included). Tap <strong>All</strong> to clear the category filter.</li>
-          <li><strong>Row 2 — Features:</strong> Tap 🚗 Drive-thru, 📱 Online ordering, or 🍽️ Dine-in only to filter by those attributes. Only locations that match <em>all</em> active feature filters are included. These chips only appear when at least one entry has that feature enabled.</li>
+          <li><strong>Row 1 — Categories:</strong> select one or more to limit the wheel to those groups (OR logic). Tap <strong>All</strong> to clear.</li>
+          <li><strong>Row 2 — Features:</strong> all selected feature chips must match (AND logic). Chips only appear when at least one entry has that feature.</li>
+          <li><strong>Row 3 — Cook time (Cook at Home only):</strong> ≤ 30 min, 31–60 min, or 60+ min. Tap the active chip again to clear. Only one range can be active at a time.</li>
         </ul>
-        <p>Category and feature filters combine — for example, selecting "Fast Food" and 🚗 Drive-thru shows only Fast Food locations that also have drive-thru.</p>
 
         <h4>Pick History</h4>
-        <p>Every spin is automatically logged in the Pick History section with the date and time. From there you can:</p>
+        <p>Every spin is logged with date and time. Each mode has its own history view. From the list you can:</p>
         <ul>
-          <li>Check the <strong>checkbox</strong> next to an entry to mark it as eaten. Confirmed entries are visually struck through and are the only ones counted by the weighting system.</li>
-          <li>Use the <strong>Mark as Eaten</strong> button that appears directly below the spin result to confirm quickly without scrolling down.</li>
-          <li>Click ✕ on any history entry to remove it individually.</li>
-          <li>Use <strong>Clear History</strong> in the ⚙ settings panel to wipe all entries at once.</li>
+          <li>Check the <strong>checkbox</strong> to mark an entry as eaten/cooked. Confirmed entries are struck through and count toward the weighting system.</li>
+          <li>Use <strong>Mark as Eaten</strong> below the spin result to confirm without scrolling.</li>
+          <li>Click ✕ to remove individual history entries.</li>
+          <li>Use <strong>Clear History</strong> in the ⚙ settings panel to wipe all history (both modes).</li>
         </ul>
 
         <h4>Spin Weight</h4>
-        <p>Each entry has a <strong>Weight %</strong> field (1–999, default 100) that scales its slice on the wheel proportionally. A 200% entry gets twice the slice of a 100% entry; a 50% entry gets half. Wheel slice sizes update visually to reflect all active weights.</p>
-        <p>Set the weight when adding a location or change it at any time via the ✏️ inline editor. Entries with a weight other than 100 show a small badge in the food list.</p>
-        <p>When <em>Reduce chance of recently eaten foods</em> is also enabled, the recency penalty is applied on top of the per-entry weight. A 500% entry reduced by 50% lands at 250% — it remains more likely than a default entry, just less likely than before it was recently eaten.</p>
+        <p>Each entry has a <strong>Weight %</strong> field (1–999, default 100) that scales its slice on the wheel proportionally. A 200% entry gets twice the slice of a 100% entry; a 50% entry gets half. When recency reduction is also active, the penalty is applied on top of the per-entry weight — a 500% entry reduced by 50% lands at 250%.</p>
 
         <h4>Reducing Recent Repeats (Weighting)</h4>
         <p>Open the <strong>⚙</strong> panel and enable <em>Reduce chance of recently eaten foods</em>. Two values control how it works:</p>
         <ul>
-          <li><strong>Reduce by X%</strong> — how much to lower the probability for a location that was recently confirmed eaten. A value of 50% means that location is half as likely to be picked.</li>
-          <li><strong>Within the last X days</strong> — how far back to look in history. Only confirmed (checked) entries within this window are counted.</li>
+          <li><strong>Reduce by X%</strong> — how much to lower the probability for a recently confirmed entry.</li>
+          <li><strong>Within the last X days</strong> — how far back to look. Only confirmed (checked) entries within this window are counted.</li>
         </ul>
-        <p>When weighting is active, slice sizes on the wheel visually reflect the adjusted probabilities — a reduced location gets a narrower slice. Click <strong>Save</strong> to apply changes.</p>
+        <p>Slice sizes on the wheel update visually to reflect adjusted probabilities. Click <strong>Save</strong> to apply.</p>
 
         <h4>Backup &amp; Restore</h4>
-        <p>All backup and restore options are in the <strong>⚙</strong> settings panel under <em>Backup &amp; Restore</em>:</p>
+        <p>All options are in the <strong>⚙</strong> settings panel under <em>Backup &amp; Restore</em>:</p>
         <ul>
-          <li><strong>Export Config</strong> — Downloads a <em>food-wheel-config.json</em> file containing your full food list and settings. Pick history is not included.</li>
-          <li><strong>Import Config</strong> — Load a previously exported config file. This replaces your current list and settings.</li>
-          <li><strong>Load Defaults</strong> — Replaces your list with a built-in set of common US restaurant chains, pre-filled with categories, websites, and feature flags.</li>
-          <li><strong>Clear Config</strong> — Wipes your entire food list and resets settings to defaults. You will be offered a backup download before the data is cleared.</li>
-          <li><strong>Clear History</strong> — Removes all entries from Pick History. Food options and settings are not affected.</li>
+          <li><strong>Export Config</strong> — downloads a JSON file containing both your Eat Out and Cook at Home lists plus settings. History is not included.</li>
+          <li><strong>Import Config</strong> — loads a previously exported file, replacing your current lists and settings.</li>
+          <li><strong>Load Defaults</strong> — replaces your Eat Out list with 34 pre-configured US restaurant chains.</li>
+          <li><strong>Clear Config</strong> — wipes all food entries and resets settings. Offers a backup download first.</li>
+          <li><strong>Clear History</strong> — removes all pick history for both modes.</li>
         </ul>
-        <p>Import, Load Defaults, and Clear Config all ask for confirmation before making changes.</p>
 
       </div>
     </div>
@@ -183,12 +226,27 @@
 
   <!-- Notes modal -->
   <div id="notes-modal" class="modal-overlay hidden">
-    <div class="modal">
+    <div class="modal modal-notes">
       <div class="modal-header">
         <h3 id="notes-modal-title">Notes</h3>
         <button id="notes-close-btn" class="modal-close">✕</button>
       </div>
-      <textarea id="notes-textarea" placeholder="Favorite dishes, good/bad experiences, anything worth remembering..."></textarea>
+
+      <!-- Eat out: single textarea -->
+      <div id="notes-eatout-section">
+        <textarea id="notes-textarea" placeholder="Favorite dishes, good/bad experiences, anything worth remembering..."></textarea>
+      </div>
+
+      <!-- Cook at home: three labeled textareas -->
+      <div id="notes-cookathome-section" class="hidden">
+        <label class="notes-section-label">Ingredients</label>
+        <textarea id="notes-ingredients" placeholder="List ingredients here..."></textarea>
+        <label class="notes-section-label">Instructions</label>
+        <textarea id="notes-instructions" placeholder="Step-by-step cooking instructions..."></textarea>
+        <label class="notes-section-label">Notes</label>
+        <textarea id="notes-general" placeholder="Variations, tips, anything else worth remembering..."></textarea>
+      </div>
+
       <div class="modal-footer">
         <button id="notes-save-btn">Save Notes</button>
         <button id="notes-cancel-btn">Cancel</button>

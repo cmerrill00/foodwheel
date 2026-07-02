@@ -46,19 +46,40 @@ const reductionPercentEl   = document.getElementById("reduction-percent");
 const withinDaysEl         = document.getElementById("within-days");
 const weightingOptionsEl   = document.getElementById("weighting-options");
 const saveSettingsBtn      = document.getElementById("save-settings-btn");
+const pageTitle            = document.getElementById("page-title");
+const foodSectionTitle     = document.getElementById("food-section-title");
+const modeEatoutBtn        = document.getElementById("mode-eatout-btn");
+const modeCookAtHomeBtn    = document.getElementById("mode-cookathome-btn");
+const addEatoutFields      = document.getElementById("add-eatout-fields");
+const addCookAtHomeFields  = document.getElementById("add-cookathome-fields");
+const notesEatoutSection   = document.getElementById("notes-eatout-section");
+const notesCahSection      = document.getElementById("notes-cookathome-section");
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
 let foods            = [];
 let history          = [];
 let settings         = { weightingEnabled: false, reductionPercent: 50, withinDays: 7 };
-let activeCategories  = new Set(); // empty = "All"
+let currentMode      = "eatOut";   // "eatOut" | "cookAtHome"
+let activeCategories = new Set();
+
+// Eat out filters
 let filterDriveThru   = false;
 let filterOnlineOrder = false;
 let filterDineIn      = false;
-let currentRotation   = 0;
-let spinning         = false;
-let lastPickEntry    = null;
+
+// Cook at home filters
+let filterQuick    = false;
+let filterSlowCook = false;
+let filterOvenBake = false;
+let filterGrill    = false;
+let filterOnePot   = false;
+let filterNoCook   = false;
+let filterCookTime = null;   // null | "short" | "medium" | "long"
+
+let currentRotation = 0;
+let spinning        = false;
+let lastPickEntry   = null;
 
 // ── API helper ────────────────────────────────────────────────────────────────
 
@@ -87,6 +108,36 @@ async function init() {
   applySettingsToPanel();
   render();
 }
+
+// ── Mode toggle ───────────────────────────────────────────────────────────────
+
+function switchMode(mode) {
+  currentMode = mode;
+
+  modeEatoutBtn.classList.toggle("mode-btn-active", mode === "eatOut");
+  modeCookAtHomeBtn.classList.toggle("mode-btn-active", mode === "cookAtHome");
+
+  pageTitle.textContent       = mode === "eatOut" ? "What's for Dinner?" : "What Should I Cook?";
+  foodSectionTitle.textContent = mode === "eatOut" ? "Food Options" : "Recipes";
+  addToggleBtn.textContent     = mode === "eatOut" ? "+ Add Location" : "+ Add Recipe";
+
+  // Reset all filters
+  activeCategories.clear();
+  filterDriveThru = filterOnlineOrder = filterDineIn = false;
+  filterQuick = filterSlowCook = filterOvenBake = filterGrill = filterOnePot = filterNoCook = false;
+  filterCookTime = null;
+
+  // Clear result
+  resultText.textContent = "";
+  markEatenBtn.classList.add("hidden");
+  lastPickEntry = null;
+
+  closeAddPanel();
+  render();
+}
+
+modeEatoutBtn.addEventListener("click",     () => switchMode("eatOut"));
+modeCookAtHomeBtn.addEventListener("click", () => switchMode("cookAtHome"));
 
 // ── Settings ──────────────────────────────────────────────────────────────────
 
@@ -129,11 +180,24 @@ helpModal.addEventListener("click", e => { if (e.target === helpModal) helpModal
 let currentNotesFood = null;
 
 function openNotesModal(food) {
-  currentNotesFood  = food;
+  currentNotesFood = food;
   notesModalTitle.textContent = food.name;
-  notesTextarea.value         = food.notes || "";
+
+  const isCah = food.mode === "cookAtHome";
+  notesEatoutSection.classList.toggle("hidden", isCah);
+  notesCahSection.classList.toggle("hidden", !isCah);
+
+  if (isCah) {
+    document.getElementById("notes-ingredients").value  = food.ingredients  || "";
+    document.getElementById("notes-instructions").value = food.instructions || "";
+    document.getElementById("notes-general").value      = food.notes        || "";
+  } else {
+    notesTextarea.value = food.notes || "";
+  }
+
   notesModal.classList.remove("hidden");
-  notesTextarea.focus();
+  if (isCah) document.getElementById("notes-ingredients").focus();
+  else notesTextarea.focus();
 }
 
 function closeNotesModal() {
@@ -143,13 +207,20 @@ function closeNotesModal() {
 
 notesSaveBtn.addEventListener("click", async () => {
   if (!currentNotesFood) return;
+  const isCah = currentNotesFood.mode === "cookAtHome";
+
+  const body = isCah ? {
+    ingredients:  document.getElementById("notes-ingredients").value,
+    instructions: document.getElementById("notes-instructions").value,
+    notes:        document.getElementById("notes-general").value,
+  } : {
+    notes: notesTextarea.value,
+  };
+
   try {
-    const updated = await api(`/api/foods/${currentNotesFood.id}`, {
-      method: "PUT",
-      body: { notes: notesTextarea.value },
-    });
+    const updated = await api(`/api/foods/${currentNotesFood.id}`, { method: "PUT", body });
     const idx = foods.findIndex(f => f.id === updated.id);
-    if (idx !== -1) foods[idx] = { ...foods[idx], notes: updated.notes };
+    if (idx !== -1) foods[idx] = updated;
     closeNotesModal();
     renderFoodList();
   } catch (e) { alert(e.message); }
@@ -176,35 +247,44 @@ function render() {
 }
 
 function getFilteredFoods() {
-  let result = foods;
+  let result = foods.filter(f => (f.mode || "eatOut") === currentMode);
+
   if (activeCategories.size > 0)
     result = result.filter(f => f.category && activeCategories.has(f.category));
-  if (filterDriveThru)   result = result.filter(f => f.driveThru);
-  if (filterOnlineOrder) result = result.filter(f => f.onlineOrder);
-  if (filterDineIn)      result = result.filter(f => f.dineIn);
+
+  if (currentMode === "eatOut") {
+    if (filterDriveThru)   result = result.filter(f => f.driveThru);
+    if (filterOnlineOrder) result = result.filter(f => f.onlineOrder);
+    if (filterDineIn)      result = result.filter(f => f.dineIn);
+  } else {
+    if (filterQuick)    result = result.filter(f => f.quick);
+    if (filterSlowCook) result = result.filter(f => f.slowCook);
+    if (filterOvenBake) result = result.filter(f => f.ovenBake);
+    if (filterGrill)    result = result.filter(f => f.grill);
+    if (filterOnePot)   result = result.filter(f => f.onePot);
+    if (filterNoCook)   result = result.filter(f => f.noCook);
+    if (filterCookTime === "short")  result = result.filter(f => (f.cookTime || 0) > 0 && (f.cookTime || 0) <= 30);
+    if (filterCookTime === "medium") result = result.filter(f => (f.cookTime || 0) > 30 && (f.cookTime || 0) <= 60);
+    if (filterCookTime === "long")   result = result.filter(f => (f.cookTime || 0) > 60);
+  }
+
   return result;
 }
 
-// ── Category multi-select chips ───────────────────────────────────────────────
+// ── Category & feature filter chips ──────────────────────────────────────────
 
 function renderCategories() {
-  const cats  = [...new Set(foods.map(f => f.category).filter(Boolean))].sort();
-  const hasDt = foods.some(f => f.driveThru);
-  const hasOo = foods.some(f => f.onlineOrder);
-  const hasDi = foods.some(f => f.dineIn);
+  const modeFoods = foods.filter(f => (f.mode || "eatOut") === currentMode);
+  const cats = [...new Set(modeFoods.map(f => f.category).filter(Boolean))].sort();
   categoryFiltersEl.innerHTML = "";
-  if (cats.length === 0 && !hasDt && !hasOo && !hasDi) return;
 
-  // Row 1: All + category chips
+  // Row 1: category chips
   if (cats.length > 0) {
     const row = document.createElement("div");
     row.className = "filter-row";
-
     row.appendChild(makeChip("All", activeCategories.size === 0, () => {
-      activeCategories.clear();
-      renderCategories(); drawWheel(); updateSpinBtn();
+      activeCategories.clear(); renderCategories(); drawWheel(); updateSpinBtn();
     }));
-
     for (const cat of cats) {
       row.appendChild(makeChip(cat, activeCategories.has(cat), () => {
         if (activeCategories.has(cat)) activeCategories.delete(cat);
@@ -215,30 +295,61 @@ function renderCategories() {
     categoryFiltersEl.appendChild(row);
   }
 
-  // Row 2: feature filter chips (only if any food has that feature)
-  if (hasDt || hasOo || hasDi) {
-    const row = document.createElement("div");
-    row.className = "filter-row";
+  if (currentMode === "eatOut") {
+    const hasDt = modeFoods.some(f => f.driveThru);
+    const hasOo = modeFoods.some(f => f.onlineOrder);
+    const hasDi = modeFoods.some(f => f.dineIn);
+    if (hasDt || hasOo || hasDi) {
+      const row = document.createElement("div");
+      row.className = "filter-row";
+      if (hasDt) row.appendChild(makeChip("🚗 Drive-thru", filterDriveThru, () => {
+        filterDriveThru = !filterDriveThru; renderCategories(); drawWheel(); updateSpinBtn();
+      }));
+      if (hasOo) row.appendChild(makeChip("📱 Online ordering", filterOnlineOrder, () => {
+        filterOnlineOrder = !filterOnlineOrder; renderCategories(); drawWheel(); updateSpinBtn();
+      }));
+      if (hasDi) row.appendChild(makeChip("🍽️ Dine-in only", filterDineIn, () => {
+        filterDineIn = !filterDineIn; renderCategories(); drawWheel(); updateSpinBtn();
+      }));
+      categoryFiltersEl.appendChild(row);
+    }
+  } else {
+    // Cook at home feature chips
+    const cahFeatures = [
+      { key: "quick",    label: "⚡ Quick",     get: () => filterQuick,    set: () => { filterQuick    = !filterQuick; } },
+      { key: "slowCook", label: "🕐 Slow Cook", get: () => filterSlowCook, set: () => { filterSlowCook = !filterSlowCook; } },
+      { key: "ovenBake", label: "🔆 Oven/Bake", get: () => filterOvenBake, set: () => { filterOvenBake = !filterOvenBake; } },
+      { key: "grill",    label: "🔥 Grill",     get: () => filterGrill,    set: () => { filterGrill    = !filterGrill; } },
+      { key: "onePot",   label: "🍲 One Pot",   get: () => filterOnePot,   set: () => { filterOnePot   = !filterOnePot; } },
+      { key: "noCook",   label: "🥗 No Cook",   get: () => filterNoCook,   set: () => { filterNoCook   = !filterNoCook; } },
+    ].filter(({ key }) => modeFoods.some(f => f[key]));
 
-    if (hasDt) {
-      row.appendChild(makeChip("🚗 Drive-thru", filterDriveThru, () => {
-        filterDriveThru = !filterDriveThru;
-        renderCategories(); drawWheel(); updateSpinBtn();
-      }));
+    if (cahFeatures.length > 0) {
+      const row = document.createElement("div");
+      row.className = "filter-row";
+      for (const { label, get, set } of cahFeatures) {
+        row.appendChild(makeChip(label, get(), () => { set(); renderCategories(); drawWheel(); updateSpinBtn(); }));
+      }
+      categoryFiltersEl.appendChild(row);
     }
-    if (hasOo) {
-      row.appendChild(makeChip("📱 Online ordering", filterOnlineOrder, () => {
-        filterOnlineOrder = !filterOnlineOrder;
-        renderCategories(); drawWheel(); updateSpinBtn();
-      }));
+
+    // Cook time range chips — only if any entry has a cookTime set
+    if (modeFoods.some(f => f.cookTime)) {
+      const row = document.createElement("div");
+      row.className = "filter-row";
+      const ranges = [
+        { label: "≤ 30 min", value: "short" },
+        { label: "31–60 min", value: "medium" },
+        { label: "60+ min",  value: "long" },
+      ];
+      for (const { label, value } of ranges) {
+        row.appendChild(makeChip(label, filterCookTime === value, () => {
+          filterCookTime = filterCookTime === value ? null : value;
+          renderCategories(); drawWheel(); updateSpinBtn();
+        }));
+      }
+      categoryFiltersEl.appendChild(row);
     }
-    if (hasDi) {
-      row.appendChild(makeChip("🍽️ Dine-in only", filterDineIn, () => {
-        filterDineIn = !filterDineIn;
-        renderCategories(); drawWheel(); updateSpinBtn();
-      }));
-    }
-    categoryFiltersEl.appendChild(row);
   }
 }
 
@@ -254,17 +365,22 @@ function makeChip(label, active, onClick) {
 
 function renderFoodList() {
   foodListEl.innerHTML = "";
-  if (foods.length === 0) {
-    foodListEl.innerHTML = '<li class="empty-msg">No food options yet. Add some above!</li>';
+  const modeFoods = foods.filter(f => (f.mode || "eatOut") === currentMode);
+  if (modeFoods.length === 0) {
+    const msg = currentMode === "eatOut"
+      ? "No food options yet. Add some above!"
+      : "No recipes yet. Add some above!";
+    foodListEl.innerHTML = `<li class="empty-msg">${msg}</li>`;
     return;
   }
-  for (const food of foods) foodListEl.appendChild(makeFoodItem(food));
+  for (const food of modeFoods) foodListEl.appendChild(makeFoodItem(food));
 }
 
 function makeFoodItem(food) {
-  const li = document.createElement("li");
+  const li    = document.createElement("li");
+  const isCah = food.mode === "cookAtHome";
 
-  const nameSpan = food.website
+  const nameSpan = (!isCah && food.website)
     ? Object.assign(document.createElement("a"), {
         href: normalizeUrl(food.website), target: "_blank", rel: "noopener noreferrer",
       })
@@ -277,9 +393,13 @@ function makeFoodItem(food) {
   catBadge.textContent = food.category || "";
   catBadge.hidden      = !food.category;
 
+  const hasNotes = isCah
+    ? (food.ingredients || food.instructions || food.notes)
+    : food.notes;
+
   const notesBtn = document.createElement("button");
-  notesBtn.className   = "icon-btn notes-btn" + (food.notes ? " has-notes" : "");
-  notesBtn.title       = food.notes ? "View/edit notes" : "Add notes";
+  notesBtn.className   = "icon-btn notes-btn" + (hasNotes ? " has-notes" : "");
+  notesBtn.title       = hasNotes ? "View/edit notes" : "Add notes";
   notesBtn.textContent = "📝";
   notesBtn.addEventListener("click", () => openNotesModal(food));
 
@@ -306,26 +426,40 @@ function makeFoodItem(food) {
     li.appendChild(wb);
   }
 
-  if (food.driveThru) {
-    const b = document.createElement("span");
-    b.className   = "feat-badge";
-    b.title       = "Drive-thru available";
-    b.textContent = "🚗";
-    li.appendChild(b);
-  }
-  if (food.onlineOrder) {
-    const b = document.createElement("span");
-    b.className   = "feat-badge";
-    b.title       = "Online ordering available";
-    b.textContent = "📱";
-    li.appendChild(b);
-  }
-  if (food.dineIn) {
-    const b = document.createElement("span");
-    b.className   = "feat-badge";
-    b.title       = "Dine-in only";
-    b.textContent = "🍽️";
-    li.appendChild(b);
+  if (isCah) {
+    if (food.cookTime) {
+      const ctb = document.createElement("span");
+      ctb.className   = "cook-time-badge";
+      ctb.title       = "Cook time";
+      ctb.textContent = `${food.cookTime} min`;
+      li.appendChild(ctb);
+    }
+    for (const [key, emoji, title] of [
+      ["quick",    "⚡", "Quick"],
+      ["slowCook", "🕐", "Slow Cook"],
+      ["ovenBake", "🔆", "Oven/Bake"],
+      ["grill",    "🔥", "Grill"],
+      ["onePot",   "🍲", "One Pot"],
+      ["noCook",   "🥗", "No Cook"],
+    ]) {
+      if (food[key]) {
+        const b = document.createElement("span");
+        b.className = "feat-badge"; b.title = title; b.textContent = emoji;
+        li.appendChild(b);
+      }
+    }
+  } else {
+    for (const [key, emoji, title] of [
+      ["driveThru",   "🚗", "Drive-thru available"],
+      ["onlineOrder", "📱", "Online ordering available"],
+      ["dineIn",      "🍽️", "Dine-in only"],
+    ]) {
+      if (food[key]) {
+        const b = document.createElement("span");
+        b.className = "feat-badge"; b.title = title; b.textContent = emoji;
+        li.appendChild(b);
+      }
+    }
   }
 
   li.append(notesBtn, editBtn, delBtn);
@@ -333,83 +467,105 @@ function makeFoodItem(food) {
 }
 
 function enterEditMode(li, food) {
+  const isCah = food.mode === "cookAtHome";
+
   const nameInput = document.createElement("input");
-  nameInput.value     = food.name;
-  nameInput.maxLength = 40;
-  nameInput.className = "edit-input";
+  nameInput.value = food.name; nameInput.maxLength = 40; nameInput.className = "edit-input";
 
   const catInput = document.createElement("input");
-  catInput.value       = food.category || "";
-  catInput.maxLength   = 30;
-  catInput.placeholder = "Category";
-  catInput.className   = "edit-input edit-cat";
+  catInput.value = food.category || ""; catInput.maxLength = 30;
+  catInput.placeholder = "Category"; catInput.className = "edit-input edit-cat";
 
   const saveBtn = document.createElement("button");
-  saveBtn.className   = "icon-btn";
-  saveBtn.title       = "Save";
-  saveBtn.textContent = "💾";
+  saveBtn.className = "icon-btn"; saveBtn.title = "Save"; saveBtn.textContent = "💾";
 
   const cancelBtn = document.createElement("button");
-  cancelBtn.className   = "icon-btn del";
-  cancelBtn.title       = "Cancel";
-  cancelBtn.textContent = "✕";
+  cancelBtn.className = "icon-btn del"; cancelBtn.title = "Cancel"; cancelBtn.textContent = "✕";
 
-  const urlInput = document.createElement("input");
-  urlInput.type        = "url";
-  urlInput.value       = food.website || "";
-  urlInput.placeholder = "Website URL (optional)";
-  urlInput.className   = "edit-input edit-url";
-
-  // Feature checkboxes
   const checksDiv = document.createElement("div");
   checksDiv.className = "edit-checks";
 
-  const dtLabel = document.createElement("label");
-  const dtCb    = document.createElement("input");
-  dtCb.type    = "checkbox";
-  dtCb.checked = !!food.driveThru;
-  dtLabel.append(dtCb, " Drive-thru");
+  let getBody;
 
-  const ooLabel = document.createElement("label");
-  const ooCb    = document.createElement("input");
-  ooCb.type    = "checkbox";
-  ooCb.checked = !!food.onlineOrder;
-  ooLabel.append(ooCb, " Online ordering");
+  if (!isCah) {
+    const urlInput = document.createElement("input");
+    urlInput.type = "url"; urlInput.value = food.website || "";
+    urlInput.placeholder = "Website URL (optional)"; urlInput.className = "edit-input edit-url";
 
-  const diLabel = document.createElement("label");
-  const diCb    = document.createElement("input");
-  diCb.type    = "checkbox";
-  diCb.checked = !!food.dineIn;
-  diLabel.append(diCb, " Dine-in only");
+    const makeCb = (checked, label) => {
+      const lbl = document.createElement("label");
+      const cb  = document.createElement("input");
+      cb.type = "checkbox"; cb.checked = checked;
+      lbl.append(cb, " " + label);
+      return { lbl, cb };
+    };
+    const { lbl: dtL, cb: dtCb } = makeCb(!!food.driveThru,   "Drive-thru");
+    const { lbl: ooL, cb: ooCb } = makeCb(!!food.onlineOrder, "Online ordering");
+    const { lbl: diL, cb: diCb } = makeCb(!!food.dineIn,      "Dine-in only");
 
-  const weightLabel = document.createElement("label");
-  weightLabel.className = "weight-label";
-  const weightInput = document.createElement("input");
-  weightInput.type      = "number";
-  weightInput.min       = "1";
-  weightInput.max       = "999";
-  weightInput.value     = food.weight ?? 100;
-  weightInput.className = "edit-input edit-weight-input";
-  weightLabel.append("Weight: ", weightInput, "%");
+    const wLabel = document.createElement("label"); wLabel.className = "weight-label";
+    const wInput = document.createElement("input");
+    wInput.type = "number"; wInput.min = "1"; wInput.max = "999";
+    wInput.value = food.weight ?? 100; wInput.className = "edit-input edit-weight-input";
+    wLabel.append("Weight: ", wInput, "%");
 
-  checksDiv.append(dtLabel, ooLabel, diLabel, weightLabel);
+    checksDiv.append(dtL, ooL, diL, wLabel);
+
+    getBody = () => ({
+      name: nameInput.value.trim(), category: catInput.value.trim(),
+      website: urlInput.value.trim(),
+      driveThru: dtCb.checked, onlineOrder: ooCb.checked, dineIn: diCb.checked,
+      weight: Math.max(1, Math.min(999, parseInt(wInput.value) || 100)),
+    });
+
+    li.innerHTML = ""; li.style.flexWrap = "wrap";
+    li.append(nameInput, catInput, saveBtn, cancelBtn, urlInput, checksDiv);
+
+  } else {
+    const ctInput = document.createElement("input");
+    ctInput.type = "number"; ctInput.min = "0"; ctInput.max = "999";
+    ctInput.value = food.cookTime || ""; ctInput.placeholder = "Cook time (mins)";
+    ctInput.className = "edit-input edit-cooktime";
+
+    const flags = [
+      ["quick", "⚡ Quick"], ["slowCook", "🕐 Slow Cook"], ["ovenBake", "🔆 Oven/Bake"],
+      ["grill", "🔥 Grill"], ["onePot",  "🍲 One Pot"],   ["noCook",   "🥗 No Cook"],
+    ];
+    const cbs = {};
+    for (const [key, label] of flags) {
+      const lbl = document.createElement("label");
+      const cb  = document.createElement("input");
+      cb.type = "checkbox"; cb.checked = !!food[key];
+      lbl.append(cb, " " + label);
+      checksDiv.appendChild(lbl);
+      cbs[key] = cb;
+    }
+
+    const wLabel = document.createElement("label"); wLabel.className = "weight-label";
+    const wInput = document.createElement("input");
+    wInput.type = "number"; wInput.min = "1"; wInput.max = "999";
+    wInput.value = food.weight ?? 100; wInput.className = "edit-input edit-weight-input";
+    wLabel.append("Weight: ", wInput, "%");
+    checksDiv.appendChild(wLabel);
+
+    getBody = () => ({
+      name: nameInput.value.trim(), category: catInput.value.trim(),
+      cookTime: parseInt(ctInput.value) || 0,
+      quick: cbs.quick.checked, slowCook: cbs.slowCook.checked,
+      ovenBake: cbs.ovenBake.checked, grill: cbs.grill.checked,
+      onePot: cbs.onePot.checked, noCook: cbs.noCook.checked,
+      weight: Math.max(1, Math.min(999, parseInt(wInput.value) || 100)),
+    });
+
+    li.innerHTML = ""; li.style.flexWrap = "wrap";
+    li.append(nameInput, catInput, saveBtn, cancelBtn, ctInput, checksDiv);
+  }
 
   async function doSave() {
-    const name = nameInput.value.trim();
-    if (!name) { alert("Name cannot be empty"); return; }
+    const body = getBody();
+    if (!body.name) { alert("Name cannot be empty"); return; }
     try {
-      await api(`/api/foods/${food.id}`, {
-        method: "PUT",
-        body: {
-          name,
-          category:    catInput.value.trim(),
-          website:     urlInput.value.trim(),
-          driveThru:   dtCb.checked,
-          onlineOrder: ooCb.checked,
-          dineIn:      diCb.checked,
-          weight:      Math.max(1, Math.min(999, parseInt(weightInput.value) || 100)),
-        },
-      });
+      await api(`/api/foods/${food.id}`, { method: "PUT", body });
       foods = await api("/api/foods");
       render();
     } catch (e) { alert(e.message); }
@@ -419,14 +575,9 @@ function enterEditMode(li, food) {
     if (e.key === "Enter")  doSave();
     if (e.key === "Escape") renderFoodList();
   });
-
-  li.innerHTML = "";
-  li.style.flexWrap = "wrap";
-  li.append(nameInput, catInput, saveBtn, cancelBtn, urlInput, checksDiv);
-  nameInput.focus();
-
   saveBtn.addEventListener("click", doSave);
   cancelBtn.addEventListener("click", () => renderFoodList());
+  nameInput.focus();
 }
 
 async function removeFood(id) {
@@ -436,24 +587,34 @@ async function removeFood(id) {
   } catch (e) { alert(e.message); }
 }
 
-// ── Add food ──────────────────────────────────────────────────────────────────
+// ── Add food / recipe ─────────────────────────────────────────────────────────
 
 function openAddPanel() {
   addFoodPanel.classList.remove("hidden");
   addToggleBtn.classList.add("hidden");
+  addEatoutFields.classList.toggle("hidden",     currentMode !== "eatOut");
+  addCookAtHomeFields.classList.toggle("hidden", currentMode !== "cookAtHome");
+  addBtn.textContent = currentMode === "eatOut" ? "Add Location" : "Add Recipe";
   foodNameInput.focus();
 }
 
 function closeAddPanel() {
   addFoodPanel.classList.add("hidden");
   addToggleBtn.classList.remove("hidden");
-  foodNameInput.value = "";
-  foodCatInput.value  = "";
-  foodUrlInput.value  = "";
+  foodNameInput.value  = "";
+  foodCatInput.value   = "";
+  foodUrlInput.value   = "";
   foodDtInput.checked  = false;
   foodOoInput.checked  = false;
   foodDiInput.checked  = false;
   foodWeightInput.value = "100";
+  document.getElementById("food-cooktime-input").value      = "";
+  document.getElementById("food-quick-input").checked       = false;
+  document.getElementById("food-slowcook-input").checked    = false;
+  document.getElementById("food-ovenbake-input").checked    = false;
+  document.getElementById("food-grill-input").checked       = false;
+  document.getElementById("food-onepot-input").checked      = false;
+  document.getElementById("food-nocook-input").checked      = false;
 }
 
 addToggleBtn.addEventListener("click", openAddPanel);
@@ -466,18 +627,29 @@ async function addFood() {
   if (!name) return;
   addBtn.disabled = true;
   try {
-    await api("/api/foods", {
-      method: "POST",
-      body: {
-        name,
-        category:    foodCatInput.value.trim(),
-        website:     foodUrlInput.value.trim(),
-        driveThru:   foodDtInput.checked,
-        onlineOrder: foodOoInput.checked,
-        dineIn:      foodDiInput.checked,
-        weight:      Math.max(1, Math.min(999, parseInt(foodWeightInput.value) || 100)),
-      },
-    });
+    const body = {
+      name,
+      mode:     currentMode,
+      category: foodCatInput.value.trim(),
+      weight:   Math.max(1, Math.min(999, parseInt(foodWeightInput.value) || 100)),
+    };
+
+    if (currentMode === "eatOut") {
+      body.website     = foodUrlInput.value.trim();
+      body.driveThru   = foodDtInput.checked;
+      body.onlineOrder = foodOoInput.checked;
+      body.dineIn      = foodDiInput.checked;
+    } else {
+      body.cookTime  = parseInt(document.getElementById("food-cooktime-input").value) || 0;
+      body.quick     = document.getElementById("food-quick-input").checked;
+      body.slowCook  = document.getElementById("food-slowcook-input").checked;
+      body.ovenBake  = document.getElementById("food-ovenbake-input").checked;
+      body.grill     = document.getElementById("food-grill-input").checked;
+      body.onePot    = document.getElementById("food-onepot-input").checked;
+      body.noCook    = document.getElementById("food-nocook-input").checked;
+    }
+
+    await api("/api/foods", { method: "POST", body });
     foods = await api("/api/foods");
     closeAddPanel();
     render();
@@ -492,21 +664,22 @@ async function addFood() {
 
 function renderHistory() {
   historyListEl.innerHTML = "";
-  if (history.length === 0) {
+  const modeHistory = history.filter(e => (e.mode || "eatOut") === currentMode);
+  if (modeHistory.length === 0) {
     historyListEl.innerHTML = '<li class="empty-msg">No picks yet — spin the wheel!</li>';
     return;
   }
-  for (const entry of history) historyListEl.appendChild(makeHistoryItem(entry));
+  for (const entry of modeHistory) historyListEl.appendChild(makeHistoryItem(entry));
 }
 
 function makeHistoryItem(entry) {
   const li = document.createElement("li");
   li.classList.toggle("confirmed", entry.confirmed);
 
-  const checkbox     = document.createElement("input");
-  checkbox.type      = "checkbox";
-  checkbox.checked   = entry.confirmed;
-  checkbox.title     = "Mark as eaten";
+  const checkbox   = document.createElement("input");
+  checkbox.type    = "checkbox";
+  checkbox.checked = entry.confirmed;
+  checkbox.title   = "Mark as eaten";
   checkbox.addEventListener("change", async () => {
     try {
       const updated = await api(`/api/history/${entry.id}`, {
@@ -522,17 +695,17 @@ function makeHistoryItem(entry) {
     } catch (e) { checkbox.checked = !checkbox.checked; }
   });
 
-  const label        = document.createElement("span");
-  label.className    = "history-label";
-  label.textContent  = entry.foodName;
+  const label      = document.createElement("span");
+  label.className  = "history-label";
+  label.textContent = entry.foodName;
 
   const dateSpan     = document.createElement("span");
-  dateSpan.className   = "history-date";
+  dateSpan.className = "history-date";
   dateSpan.textContent = formatDate(entry.pickedAt);
 
-  const delBtn       = document.createElement("button");
-  delBtn.className   = "icon-btn del";
-  delBtn.title       = "Remove entry";
+  const delBtn     = document.createElement("button");
+  delBtn.className = "icon-btn del";
+  delBtn.title     = "Remove entry";
   delBtn.textContent = "✕";
   delBtn.addEventListener("click", async () => {
     try {
@@ -597,10 +770,10 @@ function computeWeights(wheelFoods) {
 }
 
 function drawWheel() {
-  if (spinning) return; // don't redraw mid-spin — canvas slices must stay fixed while CSS rotates
-  const size    = canvas.width;
-  const center  = size / 2;
-  const radius  = center - 4;
+  if (spinning) return;
+  const size   = canvas.width;
+  const center = size / 2;
+  const radius = center - 4;
   ctx.clearRect(0, 0, size, size);
 
   const wheelFoods = getFilteredFoods();
@@ -614,7 +787,10 @@ function drawWheel() {
     ctx.font         = "15px sans-serif";
     ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("Add food options below", center, center);
+    ctx.fillText(
+      currentMode === "eatOut" ? "Add food options below" : "Add recipes below",
+      center, center
+    );
     return;
   }
 
@@ -705,8 +881,6 @@ spinBtn.addEventListener("click", async () => {
     spinning = false;
     updateSpinBtn();
 
-    // Derive winner from where the wheel actually stopped rather than the pre-spin
-    // calculation — this guarantees the result always matches what the pointer shows.
     const finalMod   = ((currentRotation % 360) + 360) % 360;
     const pointerPos = (360 - finalMod + 360) % 360;
     let cumAngle = 0;
@@ -717,12 +891,14 @@ spinBtn.addEventListener("click", async () => {
     }
     const winner = wheelFoods[actualIdx];
 
-    resultText.textContent = `🍽️ ${winner.name}`;
+    resultText.textContent = currentMode === "eatOut"
+      ? `🍽️ ${winner.name}`
+      : `🍳 ${winner.name}`;
 
     try {
       const entry = await api("/api/history", {
         method: "POST",
-        body: { foodId: winner.id, foodName: winner.name },
+        body: { foodId: winner.id, foodName: winner.name, mode: currentMode },
       });
       history.unshift(entry);
       lastPickEntry = entry;
@@ -734,8 +910,8 @@ spinBtn.addEventListener("click", async () => {
 
 // ── Backup & Restore ─────────────────────────────────────────────────────────
 
-const importBtn  = document.getElementById("import-btn");
-const importFile = document.getElementById("import-file");
+const importBtn       = document.getElementById("import-btn");
+const importFile      = document.getElementById("import-file");
 const clearBtn        = document.getElementById("clear-btn");
 const clearHistoryBtn = document.getElementById("clear-history-btn");
 const loadDefaultsBtn = document.getElementById("load-defaults-btn");
@@ -744,7 +920,7 @@ const exportBtn       = document.getElementById("export-btn");
 importBtn.addEventListener("click", () => importFile.click());
 
 loadDefaultsBtn.addEventListener("click", async () => {
-  if (!confirm("Load the default restaurant list?\n\nThis will replace your current food list and settings.")) return;
+  if (!confirm("Load the default restaurant list?\n\nThis will replace your current Eat Out list and settings.")) return;
 
   if (confirm("Would you like to export a backup of your current config first?")) {
     exportBtn.click();
@@ -753,10 +929,7 @@ loadDefaultsBtn.addEventListener("click", async () => {
 
   try {
     const config = await api("/api/config/default");
-    const result = await api("/api/config/import", {
-      method: "POST",
-      body: config,
-    });
+    const result = await api("/api/config/import", { method: "POST", body: config });
     foods    = result.foods;
     settings = result.settings;
     applySettingsToPanel();
@@ -812,9 +985,8 @@ importFile.addEventListener("change", async () => {
 
   try {
     const result = await fetch("/api/config/import", { method: "POST", body: formData });
-    const data = await result.json();
+    const data   = await result.json();
     if (!result.ok) throw new Error(data.error || "Import failed");
-
     foods    = data.foods;
     settings = data.settings;
     applySettingsToPanel();
