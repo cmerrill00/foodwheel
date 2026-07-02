@@ -121,6 +121,7 @@
           <li><strong>Drive-thru</strong> — check if the location has a drive-thru</li>
           <li><strong>Online ordering</strong> — check if online ordering is available</li>
           <li><strong>Dine-in only</strong> — check if dine-in is the only option</li>
+          <li><strong>Weight %</strong> — controls how likely this entry is to be picked relative to others (default 100). A value of 200 makes it twice as likely; 50 makes it half as likely.</li>
         </ul>
         <p>Press <strong>Add Location</strong> to save or <strong>Cancel</strong> to close without saving.</p>
 
@@ -151,6 +152,11 @@
           <li>Click ✕ on any history entry to remove it individually.</li>
           <li>Use <strong>Clear History</strong> in the ⚙ settings panel to wipe all entries at once.</li>
         </ul>
+
+        <h4>Spin Weight</h4>
+        <p>Each entry has a <strong>Weight %</strong> field (1–999, default 100) that scales its slice on the wheel proportionally. A 200% entry gets twice the slice of a 100% entry; a 50% entry gets half. Wheel slice sizes update visually to reflect all active weights.</p>
+        <p>Set the weight when adding a location or change it at any time via the ✏️ inline editor. Entries with a weight other than 100 show a small badge in the food list.</p>
+        <p>When <em>Reduce chance of recently eaten foods</em> is also enabled, the recency penalty is applied on top of the per-entry weight. A 500% entry reduced by 50% lands at 250% — it remains more likely than a default entry, just less likely than before it was recently eaten.</p>
 
         <h4>Reducing Recent Repeats (Weighting)</h4>
         <p>Open the <strong>⚙</strong> panel and enable <em>Reduce chance of recently eaten foods</em>. Two values control how it works:</p>
