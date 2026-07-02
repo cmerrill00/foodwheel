@@ -22,6 +22,7 @@ const foodUrlInput      = document.getElementById("food-url-input");
 const foodDtInput       = document.getElementById("food-dt-input");
 const foodOoInput       = document.getElementById("food-oo-input");
 const foodDiInput       = document.getElementById("food-di-input");
+const foodWeightInput   = document.getElementById("food-weight-input");
 const helpToggle        = document.getElementById("help-toggle");
 const helpModal         = document.getElementById("help-modal");
 const helpCloseBtn      = document.getElementById("help-close-btn");
@@ -296,6 +297,15 @@ function makeFoodItem(food) {
 
   li.append(nameSpan, catBadge);
 
+  const entryWeight = food.weight ?? 100;
+  if (entryWeight !== 100) {
+    const wb = document.createElement("span");
+    wb.className   = "weight-badge";
+    wb.title       = "Spin weight";
+    wb.textContent = `${entryWeight}%`;
+    li.appendChild(wb);
+  }
+
   if (food.driveThru) {
     const b = document.createElement("span");
     b.className   = "feat-badge";
@@ -372,7 +382,17 @@ function enterEditMode(li, food) {
   diCb.checked = !!food.dineIn;
   diLabel.append(diCb, " Dine-in only");
 
-  checksDiv.append(dtLabel, ooLabel, diLabel);
+  const weightLabel = document.createElement("label");
+  weightLabel.className = "weight-label";
+  const weightInput = document.createElement("input");
+  weightInput.type      = "number";
+  weightInput.min       = "1";
+  weightInput.max       = "999";
+  weightInput.value     = food.weight ?? 100;
+  weightInput.className = "edit-input edit-weight-input";
+  weightLabel.append("Weight: ", weightInput, "%");
+
+  checksDiv.append(dtLabel, ooLabel, diLabel, weightLabel);
 
   async function doSave() {
     const name = nameInput.value.trim();
@@ -387,6 +407,7 @@ function enterEditMode(li, food) {
           driveThru:   dtCb.checked,
           onlineOrder: ooCb.checked,
           dineIn:      diCb.checked,
+          weight:      Math.max(1, Math.min(999, parseInt(weightInput.value) || 100)),
         },
       });
       foods = await api("/api/foods");
@@ -429,9 +450,10 @@ function closeAddPanel() {
   foodNameInput.value = "";
   foodCatInput.value  = "";
   foodUrlInput.value  = "";
-  foodDtInput.checked = false;
-  foodOoInput.checked = false;
-  foodDiInput.checked = false;
+  foodDtInput.checked  = false;
+  foodOoInput.checked  = false;
+  foodDiInput.checked  = false;
+  foodWeightInput.value = "100";
 }
 
 addToggleBtn.addEventListener("click", openAddPanel);
@@ -453,6 +475,7 @@ async function addFood() {
         driveThru:   foodDtInput.checked,
         onlineOrder: foodOoInput.checked,
         dineIn:      foodDiInput.checked,
+        weight:      Math.max(1, Math.min(999, parseInt(foodWeightInput.value) || 100)),
       },
     });
     foods = await api("/api/foods");
@@ -561,14 +584,15 @@ function syncMarkEatenBtn() {
 // ── Wheel drawing ─────────────────────────────────────────────────────────────
 
 function computeWeights(wheelFoods) {
-  if (!settings.weightingEnabled) return wheelFoods.map(() => 1);
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - settings.withinDays);
   return wheelFoods.map(food => {
+    const base = (food.weight ?? 100) / 100;
+    if (!settings.weightingEnabled) return base;
     const recentlyEaten = history.some(
       h => h.foodId === food.id && h.confirmed && new Date(h.pickedAt) > cutoff
     );
-    return recentlyEaten ? Math.max(0.05, 1 - settings.reductionPercent / 100) : 1;
+    return recentlyEaten ? Math.max(0.01, base * (1 - settings.reductionPercent / 100)) : base;
   });
 }
 

@@ -278,7 +278,8 @@ header h1 { margin: 0; font-size: 1.6rem; }
 
 .add-food-options {
   display: flex;
-  gap: 1.2rem;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
   padding: 0 0.2rem;
 }
 
@@ -292,6 +293,31 @@ header h1 { margin: 0; font-size: 1.6rem; }
 }
 
 .add-food-options input[type="checkbox"] { cursor: pointer; }
+
+.weight-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.88rem;
+  color: #bbb;
+}
+
+.weight-label input[type="number"] {
+  width: 54px;
+  padding: 0.2rem 0.35rem;
+  background: #1e1e2e;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: #eee;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.edit-weight-input {
+  width: 54px !important;
+  flex: none !important;
+  text-align: center;
+}
 
 /* ── Food list ── */
 
@@ -333,6 +359,16 @@ a.food-name:hover { text-decoration: underline; }
   font-size: 0.8rem;
   line-height: 1;
   opacity: 0.75;
+  white-space: nowrap;
+}
+
+.weight-badge {
+  font-size: 0.72rem;
+  color: #90a4ae;
+  background: #1e1e2e;
+  border: 1px solid #3a4a55;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
   white-space: nowrap;
 }
 

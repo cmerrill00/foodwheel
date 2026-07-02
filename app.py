@@ -65,6 +65,7 @@ def add_food():
     drive_thru   = bool(body.get("driveThru", False))
     online_order = bool(body.get("onlineOrder", False))
     dine_in      = bool(body.get("dineIn", False))
+    weight       = max(1, min(999, int(body.get("weight", 100))))
     with _lock:
         foods = load_foods()
         foods.append({
@@ -75,6 +76,7 @@ def add_food():
             "driveThru": drive_thru,
             "onlineOrder": online_order,
             "dineIn": dine_in,
+            "weight": weight,
             "notes": "",
         })
         save_foods(foods)
@@ -103,6 +105,8 @@ def edit_food(food_id):
                     food["onlineOrder"] = bool(body["onlineOrder"])
                 if "dineIn" in body:
                     food["dineIn"] = bool(body["dineIn"])
+                if "weight" in body:
+                    food["weight"] = max(1, min(999, int(body["weight"])))
                 if "notes" in body:
                     food["notes"] = body["notes"]
                 save_foods(foods)

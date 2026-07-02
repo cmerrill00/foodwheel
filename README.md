@@ -12,6 +12,7 @@ A self-hosted web app that helps you decide what to eat. Add your favorite resta
 - **Recency weighting** — reduce the odds of recently eaten locations appearing on the wheel
 - **Per-entry notes** — record favorite dishes, experiences, or anything worth remembering
 - **Website links** — add a URL to any entry and the name becomes a clickable link
+- **Per-entry spin weight** — assign a custom weight percentage to any entry to make it more or less likely to be picked; the wheel slice sizes reflect the adjusted probabilities visually
 - **Backup & restore** — export and import your full configuration as a JSON file
 - **Built-in defaults** — load a pre-configured set of 34 common US restaurant chains
 - **Dark theme UI** with a settings panel, help modal, and inline editing
@@ -87,6 +88,7 @@ Click **+ Add Location** in the Food Options header to open the entry form:
 - **Drive-thru** — check if the location has a drive-thru
 - **Online ordering** — check if online ordering is available
 - **Dine-in only** — check if dine-in is the only option
+- **Weight %** — a number from 1–999 controlling how likely this entry is to be picked relative to others (default 100). A value of 200 makes it twice as likely; 50 makes it half as likely. Entries with a non-default weight show a small badge in the food list.
 
 ### Managing Your List
 
@@ -113,6 +115,16 @@ Every spin is automatically logged with date and time. From the history list you
 - Use the **Mark as Eaten** button that appears below the spin result to confirm quickly without scrolling.
 - Click **✕** on any history entry to remove it individually.
 - Use **Clear History** in the ⚙ settings panel to wipe all entries at once.
+
+### Per-Entry Spin Weight
+
+Every entry has a **Weight %** field (1–999, default 100) that scales its slice on the wheel relative to all other entries. The adjustment is proportional — a 200% entry gets twice the slice of a 100% entry, and a 50% entry gets half.
+
+- Set weight when adding a new location via the **Weight %** input in the add panel
+- Change it at any time using the inline **✏️** editor
+- Entries with a weight other than 100 display a small badge in the food list so you can see adjustments at a glance
+
+When the recency reduction setting is also active, the penalty is applied multiplicatively on top of the per-entry weight. For example, an entry at 500% reduced by 50% lands at 250% — it is still more likely than a default entry, just less likely than before it was recently eaten.
 
 ### Reducing Recent Repeats (Weighting)
 
