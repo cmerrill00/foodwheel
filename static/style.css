@@ -399,7 +399,8 @@ a.food-name:hover { text-decoration: underline; }
 
 .edit-checks {
   display: flex;
-  gap: 0.8rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
   width: 100%;
   padding: 0.2rem 0;
 }
@@ -411,6 +412,12 @@ a.food-name:hover { text-decoration: underline; }
   font-size: 0.83rem;
   color: #bbb;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.edit-checks .weight-label {
+  flex: 1 0 100%;
+  padding-top: 0.1rem;
 }
 
 .icon-btn {
