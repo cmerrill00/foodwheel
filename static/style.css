@@ -575,6 +575,13 @@ a.food-name:hover { text-decoration: underline; }
   flex-wrap: wrap;
 }
 
+.modal-footer-left {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-right: auto;
+}
+
 .notes-print-btn {
   padding: 0.45rem 1rem;
   border: 1px solid #555;
@@ -583,7 +590,6 @@ a.food-name:hover { text-decoration: underline; }
   color: #aaa;
   font-size: 0.88rem;
   cursor: pointer;
-  margin-right: auto;
 }
 
 .notes-print-btn:hover { border-color: #888; color: #fff; }
@@ -652,6 +658,81 @@ a.food-name:hover { text-decoration: underline; }
 
 .icon-btn.notes-btn { color: #555; }
 .icon-btn.notes-btn.has-notes { color: #f5c518; }
+
+/* ── Disabled (paused) entries ── */
+
+.icon-btn.pause-btn { color: #888; font-size: 0.85rem; }
+
+#food-list li.food-disabled { opacity: 0.45; }
+#food-list li.food-disabled .food-name { font-style: italic; }
+
+/* ── Weekly planner ── */
+
+.plan-week-btn {
+  display: block;
+  margin: 0.7rem auto 0;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid #555;
+  border-radius: 999px;
+  background: none;
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.plan-week-btn:hover { border-color: #f5c518; color: #f5c518; }
+
+.modal-plan { max-width: 460px; }
+
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.plan-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #1e1e2e;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+}
+
+.plan-day {
+  width: 90px;
+  flex-shrink: 0;
+  color: #f5c518;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.plan-food { flex: 1; font-size: 0.95rem; }
+
+#plan-save-btn {
+  padding: 0.45rem 1.1rem;
+  border: none;
+  border-radius: 6px;
+  background: #f5c518;
+  color: #1e1e2e;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#plan-cancel-btn {
+  padding: 0.45rem 1rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: none;
+  color: #aaa;
+  cursor: pointer;
+}
+
+#plan-cancel-btn:hover { border-color: #888; color: #fff; }
 
 .modal-help { max-width: 520px; max-height: 85vh; }
 
