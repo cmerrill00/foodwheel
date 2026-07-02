@@ -1,0 +1,15 @@
+services:
+  food-wheel:
+    build: .
+    container_name: food-wheel
+    ports:
+      - "5000:5000"
+    volumes:
+      - food-wheel-data:/data
+    environment:
+      - DATA_DIR=/data
+      - PORT=5000
+    restart: unless-stopped
+
+volumes:
+  food-wheel-data:

@@ -1,0 +1,316 @@
+{
+  "version": 1,
+  "settings": {
+    "weightingEnabled": false,
+    "reductionPercent": 50,
+    "withinDays": 7
+  },
+  "foods": [
+    {
+      "id": "def-mcd",
+      "name": "McDonald's",
+      "category": "Fast Food",
+      "website": "mcdonalds.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-bk",
+      "name": "Burger King",
+      "category": "Fast Food",
+      "website": "bk.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-wen",
+      "name": "Wendy's",
+      "category": "Fast Food",
+      "website": "wendys.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-cfa",
+      "name": "Chick-fil-A",
+      "category": "Fast Food",
+      "website": "chick-fil-a.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-tb",
+      "name": "Taco Bell",
+      "category": "Fast Food",
+      "website": "tacobell.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-arb",
+      "name": "Arby's",
+      "category": "Fast Food",
+      "website": "arbys.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-son",
+      "name": "Sonic Drive-In",
+      "category": "Fast Food",
+      "website": "sonicdrivein.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-dq",
+      "name": "Dairy Queen",
+      "category": "Fast Food",
+      "website": "dairyqueen.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-pop",
+      "name": "Popeyes",
+      "category": "Fast Food",
+      "website": "popeyes.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-kfc",
+      "name": "KFC",
+      "category": "Fast Food",
+      "website": "kfc.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-5g",
+      "name": "Five Guys",
+      "category": "Burgers",
+      "website": "fiveguys.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-rr",
+      "name": "Red Robin",
+      "category": "Burgers",
+      "website": "redrobin.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-sub",
+      "name": "Subway",
+      "category": "Sandwiches",
+      "website": "subway.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-jj",
+      "name": "Jimmy John's",
+      "category": "Sandwiches",
+      "website": "jimmyjohns.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-jm",
+      "name": "Jersey Mike's",
+      "category": "Sandwiches",
+      "website": "jerseymikes.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-pan",
+      "name": "Panera Bread",
+      "category": "Sandwiches",
+      "website": "panerabread.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-chp",
+      "name": "Chipotle",
+      "category": "Mexican",
+      "website": "chipotle.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-qdb",
+      "name": "Qdoba",
+      "category": "Mexican",
+      "website": "qdoba.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-ph",
+      "name": "Pizza Hut",
+      "category": "Pizza",
+      "website": "pizzahut.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-dom",
+      "name": "Domino's",
+      "category": "Pizza",
+      "website": "dominos.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-pj",
+      "name": "Papa John's",
+      "category": "Pizza",
+      "website": "papajohns.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": false
+    },
+    {
+      "id": "def-pex",
+      "name": "Panda Express",
+      "category": "Asian",
+      "website": "pandaexpress.com",
+      "driveThru": true,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-app",
+      "name": "Applebee's",
+      "category": "Casual Dining",
+      "website": "applebees.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-chi",
+      "name": "Chili's",
+      "category": "Casual Dining",
+      "website": "chilis.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-og",
+      "name": "Olive Garden",
+      "category": "Casual Dining",
+      "website": "olivegarden.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-tgif",
+      "name": "TGI Fridays",
+      "category": "Casual Dining",
+      "website": "tgifridays.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-bww",
+      "name": "Buffalo Wild Wings",
+      "category": "Casual Dining",
+      "website": "buffalowildwings.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-tcf",
+      "name": "Cheesecake Factory",
+      "category": "Casual Dining",
+      "website": "thecheesecakefactory.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-out",
+      "name": "Outback Steakhouse",
+      "category": "Steakhouse",
+      "website": "outback.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-txr",
+      "name": "Texas Roadhouse",
+      "category": "Steakhouse",
+      "website": "texasroadhouse.com",
+      "driveThru": false,
+      "onlineOrder": false,
+      "dineIn": true
+    },
+    {
+      "id": "def-rl",
+      "name": "Red Lobster",
+      "category": "Seafood",
+      "website": "redlobster.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-ihop",
+      "name": "IHOP",
+      "category": "Breakfast",
+      "website": "ihop.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-den",
+      "name": "Denny's",
+      "category": "Breakfast",
+      "website": "dennys.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    },
+    {
+      "id": "def-cb",
+      "name": "Cracker Barrel",
+      "category": "Breakfast",
+      "website": "crackerbarrel.com",
+      "driveThru": false,
+      "onlineOrder": true,
+      "dineIn": true
+    }
+  ]
+}

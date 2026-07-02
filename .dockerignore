@@ -1,0 +1,12 @@
+# User data — must be volume-mounted, not baked into the image
+data/
+
+# Python artifacts
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dev/repo files
+.git/
+.gitignore
