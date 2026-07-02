@@ -55,6 +55,7 @@ const addCookAtHomeFields  = document.getElementById("add-cookathome-fields");
 const notesEatoutSection   = document.getElementById("notes-eatout-section");
 const notesCahSection      = document.getElementById("notes-cookathome-section");
 const notesPrintBtn        = document.getElementById("notes-print-btn");
+const notesShoppingBtn     = document.getElementById("notes-shopping-btn");
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
@@ -197,6 +198,7 @@ function openNotesModal(food) {
   }
 
   notesPrintBtn.classList.toggle("hidden", !isCah);
+  notesShoppingBtn.classList.toggle("hidden", !isCah);
 
   notesModal.classList.remove("hidden");
   if (isCah) document.getElementById("notes-ingredients").focus();
@@ -236,6 +238,47 @@ notesPrintBtn.addEventListener("click", () => {
   if (!currentNotesFood) return;
   printRecipe(currentNotesFood);
 });
+
+notesShoppingBtn.addEventListener("click", () => {
+  if (!currentNotesFood) return;
+  printShoppingList(currentNotesFood);
+});
+
+function printShoppingList(food) {
+  const ingredients = document.getElementById("notes-ingredients").value.trim();
+  if (!ingredients) { alert("No ingredients saved for this recipe yet."); return; }
+
+  const items = ingredients.split("\n")
+    .map(l => l.trim()).filter(Boolean)
+    .map(l => `<li>${l}</li>`).join("");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping List — ${food.name}</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 520px; margin: 2rem auto; padding: 0 1rem; color: #111; line-height: 1.7; }
+    h1 { font-size: 1.5rem; margin: 0 0 0.2rem; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 1.2rem; border-bottom: 2px solid #333; padding-bottom: 0.6rem; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { font-size: 1rem; padding: 0.25rem 0; }
+    li::before { content: "\\2610"; margin-right: 0.7em; font-size: 1.1rem; }
+    @media print { body { margin: 0.5in; } }
+  </style>
+</head>
+<body>
+  <h1>Shopping List</h1>
+  <p class="meta">${food.name}</p>
+  <ul>${items}</ul>
+  <script>window.onload = function() { window.print(); }<\/script>
+</body>
+</html>`;
+
+  const win = window.open("", "_blank");
+  win.document.write(html);
+  win.document.close();
+}
 
 function printRecipe(food) {
   const ingredients  = document.getElementById("notes-ingredients").value  || "";
@@ -284,6 +327,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape") {
     closeNotesModal();
     helpModal.classList.add("hidden");
+    document.getElementById("plan-modal").classList.add("hidden");
   }
 });
 
@@ -298,7 +342,7 @@ function render() {
 }
 
 function getFilteredFoods() {
-  let result = foods.filter(f => (f.mode || "eatOut") === currentMode);
+  let result = foods.filter(f => (f.mode || "eatOut") === currentMode && !f.disabled);
 
   if (activeCategories.size > 0)
     result = result.filter(f => f.category && activeCategories.has(f.category));
@@ -430,6 +474,7 @@ function renderFoodList() {
 function makeFoodItem(food) {
   const li    = document.createElement("li");
   const isCah = food.mode === "cookAtHome";
+  li.classList.toggle("food-disabled", !!food.disabled);
 
   const nameSpan = (!isCah && food.website)
     ? Object.assign(document.createElement("a"), {
@@ -447,6 +492,22 @@ function makeFoodItem(food) {
   const hasNotes = isCah
     ? (food.ingredients || food.instructions || food.notes)
     : food.notes;
+
+  const pauseBtn = document.createElement("button");
+  pauseBtn.className   = "icon-btn pause-btn";
+  pauseBtn.title       = food.disabled ? "Return to wheel" : "Remove from wheel";
+  pauseBtn.textContent = food.disabled ? "▶" : "⏸";
+  pauseBtn.addEventListener("click", async () => {
+    try {
+      const updated = await api(`/api/foods/${food.id}`, {
+        method: "PUT",
+        body: { disabled: !food.disabled },
+      });
+      const idx = foods.findIndex(f => f.id === updated.id);
+      if (idx !== -1) foods[idx] = updated;
+      render();
+    } catch (e) { alert(e.message); }
+  });
 
   const notesBtn = document.createElement("button");
   notesBtn.className   = "icon-btn notes-btn" + (hasNotes ? " has-notes" : "");
@@ -513,7 +574,7 @@ function makeFoodItem(food) {
     }
   }
 
-  li.append(notesBtn, editBtn, delBtn);
+  li.append(pauseBtn, notesBtn, editBtn, delBtn);
   return li;
 }
 
@@ -619,8 +680,9 @@ function enterEditMode(li, food) {
     const body = getBody();
     if (!body.name) { alert("Name cannot be empty"); return; }
     try {
-      await api(`/api/foods/${food.id}`, { method: "PUT", body });
-      foods = await api("/api/foods");
+      const updated = await api(`/api/foods/${food.id}`, { method: "PUT", body });
+      const idx = foods.findIndex(f => f.id === updated.id);
+      if (idx !== -1) foods[idx] = updated;
       render();
     } catch (e) { alert(e.message); }
   }
@@ -703,8 +765,7 @@ async function addFood() {
       body.noCook    = document.getElementById("food-nocook-input").checked;
     }
 
-    await api("/api/foods", { method: "POST", body });
-    foods = await api("/api/foods");
+    foods = await api("/api/foods", { method: "POST", body });
     closeAddPanel();
     render();
   } catch (e) {
@@ -862,6 +923,9 @@ function drawWheel() {
     ctx.closePath();
     ctx.fillStyle = COLORS[i % COLORS.length];
     ctx.fill();
+    ctx.strokeStyle = "#1e1e2e";
+    ctx.lineWidth   = 2;
+    ctx.stroke();
 
     if (sliceAngle > 0.15) {
       const maxChars = sliceAngle > 1 ? 18 : 10;
@@ -881,6 +945,19 @@ function drawWheel() {
 
     startAngle = endAngle;
   });
+
+  // Center hub — covers the point where all slices meet for a cleaner look
+  ctx.beginPath();
+  ctx.arc(center, center, 26, 0, Math.PI * 2);
+  ctx.fillStyle = "#2a2a3d";
+  ctx.fill();
+  ctx.strokeStyle = "#1e1e2e";
+  ctx.lineWidth   = 3;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(center, center, 8, 0, Math.PI * 2);
+  ctx.fillStyle = "#f5c518";
+  ctx.fill();
 }
 
 // ── Spin ──────────────────────────────────────────────────────────────────────
@@ -960,6 +1037,125 @@ spinBtn.addEventListener("click", async () => {
       markEatenBtn.classList.remove("hidden");
     } catch (_) { /* non-fatal */ }
   });
+});
+
+// ── Weekly planner ────────────────────────────────────────────────────────────
+
+const planWeekBtn    = document.getElementById("plan-week-btn");
+const planModal      = document.getElementById("plan-modal");
+const planModalTitle = document.getElementById("plan-modal-title");
+const planListEl     = document.getElementById("plan-list");
+const planCloseBtn   = document.getElementById("plan-close-btn");
+const planCancelBtn  = document.getElementById("plan-cancel-btn");
+const planSaveBtn    = document.getElementById("plan-save-btn");
+const planRegenBtn   = document.getElementById("plan-regen-btn");
+const planPrintBtn   = document.getElementById("plan-print-btn");
+
+const PLAN_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+let currentPlan = [];
+
+function generatePlan() {
+  const pool = getFilteredFoods();
+  const used = new Set();
+  currentPlan = PLAN_DAYS.map(day => {
+    let candidates = pool.filter(f => !used.has(f.id));
+    if (candidates.length === 0) { used.clear(); candidates = pool; }
+    const f = candidates[weightedRandom(computeWeights(candidates))];
+    used.add(f.id);
+    return { day, foodId: f.id, foodName: f.name };
+  });
+}
+
+function rerollDay(i) {
+  const pool = getFilteredFoods();
+  if (pool.length === 0) return;
+  const usedIds = new Set(currentPlan.filter((_, j) => j !== i).map(p => p.foodId));
+  let candidates = pool.filter(f => !usedIds.has(f.id) && f.id !== currentPlan[i].foodId);
+  if (candidates.length === 0) candidates = pool.filter(f => f.id !== currentPlan[i].foodId);
+  if (candidates.length === 0) candidates = pool;
+  const f = candidates[weightedRandom(computeWeights(candidates))];
+  currentPlan[i] = { day: currentPlan[i].day, foodId: f.id, foodName: f.name };
+  renderPlanList();
+}
+
+function renderPlanList() {
+  planListEl.innerHTML = "";
+  currentPlan.forEach((p, i) => {
+    const li = document.createElement("li");
+
+    const day = document.createElement("span");
+    day.className   = "plan-day";
+    day.textContent = p.day;
+
+    const food = document.createElement("span");
+    food.className   = "plan-food";
+    food.textContent = p.foodName;
+
+    const reroll = document.createElement("button");
+    reroll.className   = "icon-btn";
+    reroll.title       = "Re-roll this day";
+    reroll.textContent = "🎲";
+    reroll.addEventListener("click", () => rerollDay(i));
+
+    li.append(day, food, reroll);
+    planListEl.appendChild(li);
+  });
+}
+
+planWeekBtn.addEventListener("click", async () => {
+  if (getFilteredFoods().length < 2) {
+    alert("Add at least two entries (matching the current filters) to plan a week.");
+    return;
+  }
+  planModalTitle.textContent = currentMode === "eatOut"
+    ? "Weekly Plan — Eat Out"
+    : "Weekly Plan — Cook at Home";
+  try { currentPlan = await api(`/api/plan/${currentMode}`); } catch (_) { currentPlan = []; }
+  if (!Array.isArray(currentPlan) || currentPlan.length === 0) generatePlan();
+  renderPlanList();
+  planModal.classList.remove("hidden");
+});
+
+function closePlanModal() { planModal.classList.add("hidden"); }
+planCloseBtn.addEventListener("click", closePlanModal);
+planCancelBtn.addEventListener("click", closePlanModal);
+planModal.addEventListener("click", e => { if (e.target === planModal) closePlanModal(); });
+
+planRegenBtn.addEventListener("click", () => { generatePlan(); renderPlanList(); });
+
+planSaveBtn.addEventListener("click", async () => {
+  try {
+    await api(`/api/plan/${currentMode}`, { method: "PUT", body: currentPlan });
+    closePlanModal();
+  } catch (e) { alert(e.message); }
+});
+
+planPrintBtn.addEventListener("click", () => {
+  const rows = currentPlan
+    .map(p => `<li><span class="day">${p.day}</span>${p.foodName}</li>`).join("");
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${planModalTitle.textContent}</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 520px; margin: 2rem auto; padding: 0 1rem; color: #111; line-height: 1.8; }
+    h1 { font-size: 1.5rem; margin: 0 0 1rem; border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { font-size: 1rem; padding: 0.3rem 0; border-bottom: 1px solid #ddd; }
+    .day { display: inline-block; width: 110px; font-weight: bold; }
+    @media print { body { margin: 0.5in; } }
+  </style>
+</head>
+<body>
+  <h1>${planModalTitle.textContent}</h1>
+  <ul>${rows}</ul>
+  <script>window.onload = function() { window.print(); }<\/script>
+</body>
+</html>`;
+  const win = window.open("", "_blank");
+  win.document.write(html);
+  win.document.close();
 });
 
 // ── Backup & Restore ─────────────────────────────────────────────────────────

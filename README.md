@@ -13,6 +13,8 @@ A self-hosted web app that helps you decide what to eat. Add restaurants and hom
 - **Recency weighting** — reduce the odds of recently picked entries appearing on the wheel
 - **Per-entry spin weight** — assign a custom weight percentage (1–999%) to make any entry more or less likely
 - **Per-entry notes** — store freeform notes on any entry; icon turns gold when notes are saved
+- **Pause entries** — temporarily remove an entry from the wheel without deleting it
+- **Weekly planner** — generate a Monday–Sunday meal plan with per-day re-rolls, printing, and saving
 - **Inline editing** — edit any field directly in the food list without a separate screen
 - **Backup & restore** — export and import your full configuration as a single JSON file
 - **Built-in defaults** — load a pre-configured set of 34 US restaurant chains and 25 home recipes
@@ -28,12 +30,40 @@ A self-hosted web app that helps you decide what to eat. Add restaurants and hom
 - Feature flags: ⚡ Quick, 🕐 Slow Cook, 🔆 Oven/Bake, 🔥 Grill, 🍲 One Pot, 🥗 No Cook
 - Structured notes with separate **Ingredients**, **Instructions**, and **Notes** sections
 - **Print Recipe** button — opens a clean formatted recipe page and triggers the browser print dialog
+- **Shopping List** button — prints just the ingredients as a checkbox list for the store
 
 ---
 
 ## Getting Started
 
-### Docker (recommended)
+### Docker — prebuilt image (easiest)
+
+A prebuilt image is published to GitHub Container Registry on every release. Create a `docker-compose.yml`:
+
+```yaml
+services:
+  food-wheel:
+    image: ghcr.io/cmerrill00/foodwheel:latest
+    container_name: food-wheel
+    ports:
+      - "5000:5000"
+    volumes:
+      - food-wheel-data:/data
+    restart: unless-stopped
+
+volumes:
+  food-wheel-data:
+```
+
+Then:
+
+```bash
+docker compose up -d
+```
+
+Images are built automatically by GitHub Actions on every merge to `main` and tagged `latest` plus the commit SHA.
+
+### Docker — build from source
 
 ```bash
 git clone https://github.com/cmerrill00/foodwheel.git
@@ -118,8 +148,9 @@ Click **Spin the Wheel** to randomly select from your list. The yellow triangle 
 
 ### Managing Your List
 
-Each entry shows three icons on the right:
+Each entry shows four icons on the right:
 
+- **⏸** — Temporarily removes the entry from the wheel without deleting it. Paused entries appear dimmed; click **▶** to bring them back. Useful for "out of ingredients" or "closed this week."
 - **📝** — Opens the notes panel. Icon turns gold when notes have been saved.
 - **✏️** — Opens an inline editor for all fields.
 - **✕** — Permanently removes the entry.
@@ -129,7 +160,9 @@ Each entry shows three icons on the right:
 Click the 📝 icon on any entry to open its notes panel.
 
 - **Eat Out** — a single freeform text area for anything worth remembering: favorite dishes, past experiences, recommendations.
-- **Cook at Home** — three labeled sections: **Ingredients**, **Instructions**, and **Notes**. A **Print Recipe** button in the footer opens a clean formatted recipe page in a new tab and triggers the browser print dialog, useful for taking a recipe to the kitchen.
+- **Cook at Home** — three labeled sections: **Ingredients**, **Instructions**, and **Notes**, plus two extra footer buttons:
+  - **Print Recipe** — opens a clean formatted recipe page in a new tab and triggers the browser print dialog, useful for taking a recipe to the kitchen.
+  - **Shopping List** — prints just the ingredients as a checkbox list, ready to take to the store.
 
 ### Filtering the Wheel
 
@@ -149,6 +182,15 @@ Every spin is logged with date and time. Each mode shows its own history. From t
 - Use **Mark as Eaten** below the spin result to confirm without scrolling.
 - Click **✕** on any entry to remove it individually.
 - Use **Clear History** in the ⚙ settings panel to wipe all history for both modes.
+
+### Weekly Planner
+
+Click **📅 Plan My Week** below the spin button to generate a Monday–Sunday meal plan from the current mode's entries. The planner respects active filters and spin weights, and avoids repeats until every option has been used.
+
+- **🎲** — re-roll a single day without changing the rest
+- **Regenerate** — start over with a fresh random plan
+- **Print** — open a printable version of the plan
+- **Save Plan** — store the plan so it reappears next time; each mode keeps its own saved plan
 
 ### Per-Entry Spin Weight
 
@@ -188,6 +230,7 @@ All data is stored as plain JSON files:
 | `data/foods.json` | All food entries for both modes (each entry has a `mode` field) |
 | `data/history.json` | Pick history log for both modes |
 | `data/settings.json` | Weighting preferences |
+| `data/plans.json` | Saved weekly plans (one per mode) |
 
 When running via Docker, these files live inside the `food-wheel-data` named volume.
 

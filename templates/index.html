@@ -68,6 +68,8 @@
       <button id="mark-eaten-btn" class="hidden">Mark as Eaten</button>
     </div>
 
+    <button id="plan-week-btn" class="plan-week-btn">📅 Plan My Week</button>
+
     <!-- Food / Recipe list -->
     <div class="section-header">
       <h2 id="food-section-title">Food Options</h2>
@@ -167,8 +169,9 @@
         </ul>
 
         <h4>Managing Your List</h4>
-        <p>Each entry shows three icons on the right:</p>
+        <p>Each entry shows four icons on the right:</p>
         <ul>
+          <li><strong>⏸</strong> — Temporarily removes the entry from the wheel without deleting it. Paused entries appear dimmed in the list; click <strong>▶</strong> to return them to the wheel. Useful for "out of ingredients" or "closed for renovation."</li>
           <li><strong>📝</strong> — Opens the notes panel. The icon turns gold when any notes content has been saved.</li>
           <li><strong>✏️</strong> — Opens an inline editor for all fields. Press Enter or the save icon to confirm, or ✕ to cancel.</li>
           <li><strong>✕</strong> — Permanently removes the entry.</li>
@@ -180,7 +183,11 @@
           <li><strong>Eat Out:</strong> a single freeform text area for anything worth remembering — favorite dishes, past experiences, recommendations.</li>
           <li><strong>Cook at Home:</strong> three labeled sections — <em>Ingredients</em>, <em>Instructions</em>, and <em>Notes</em>. Use them to store a full recipe alongside anything extra.</li>
         </ul>
-        <p>Cook at Home notes include a <strong>Print Recipe</strong> button in the footer. Clicking it opens a clean, formatted recipe page in a new tab and triggers the browser print dialog — useful for taking a recipe to the kitchen without a device.</p>
+        <p>Cook at Home notes include two extra buttons in the footer:</p>
+        <ul>
+          <li><strong>Print Recipe</strong> — opens a clean, formatted recipe page in a new tab and triggers the browser print dialog.</li>
+          <li><strong>Shopping List</strong> — prints just the ingredients as a checkbox list, ready to take to the store.</li>
+        </ul>
         <p>Click outside the panel, press Escape, or use Cancel to close without saving.</p>
 
         <h4>Filtering the Wheel</h4>
@@ -198,6 +205,15 @@
           <li>Use <strong>Mark as Eaten</strong> below the spin result to confirm without scrolling.</li>
           <li>Click ✕ to remove individual history entries.</li>
           <li>Use <strong>Clear History</strong> in the ⚙ settings panel to wipe all history (both modes).</li>
+        </ul>
+
+        <h4>Weekly Planner</h4>
+        <p>Click <strong>📅 Plan My Week</strong> below the spin button to generate a Monday–Sunday meal plan from the current mode's entries. The planner respects your active filters and spin weights, and avoids repeating an entry until every option has been used.</p>
+        <ul>
+          <li><strong>🎲</strong> — re-rolls a single day without changing the rest of the plan.</li>
+          <li><strong>Regenerate</strong> — starts over with a fresh random plan.</li>
+          <li><strong>Print</strong> — opens a printable version of the plan.</li>
+          <li><strong>Save Plan</strong> — stores the plan so it reappears the next time you open the planner. Each mode keeps its own saved plan.</li>
         </ul>
 
         <h4>Spin Weight</h4>
@@ -249,9 +265,31 @@
       </div>
 
       <div class="modal-footer">
-        <button id="notes-print-btn" class="notes-print-btn hidden">Print Recipe</button>
+        <div class="modal-footer-left">
+          <button id="notes-shopping-btn" class="notes-print-btn hidden">Shopping List</button>
+          <button id="notes-print-btn" class="notes-print-btn hidden">Print Recipe</button>
+        </div>
         <button id="notes-save-btn">Save Notes</button>
         <button id="notes-cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly plan modal -->
+  <div id="plan-modal" class="modal-overlay hidden">
+    <div class="modal modal-plan">
+      <div class="modal-header">
+        <h3 id="plan-modal-title">Weekly Plan</h3>
+        <button id="plan-close-btn" class="modal-close">✕</button>
+      </div>
+      <ul id="plan-list" class="plan-list"></ul>
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <button id="plan-regen-btn" class="notes-print-btn">Regenerate</button>
+          <button id="plan-print-btn" class="notes-print-btn">Print</button>
+        </div>
+        <button id="plan-save-btn">Save Plan</button>
+        <button id="plan-cancel-btn">Cancel</button>
       </div>
     </div>
   </div>

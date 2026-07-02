@@ -40,6 +40,8 @@ def load_history():   return _read("history.json", [])
 def save_history(d):  _write("history.json", d)
 def load_settings():  return {**DEFAULT_SETTINGS, **_read("settings.json", {})}
 def save_settings(d): _write("settings.json", d)
+def load_plans():     return _read("plans.json", {})
+def save_plans(d):    _write("plans.json", d)
 
 
 @app.route("/")
@@ -74,6 +76,7 @@ def add_food():
         "name":     name,
         "category": category,
         "weight":   weight,
+        "disabled": bool(body.get("disabled", False)),
         "notes":    body.get("notes", ""),
     }
 
@@ -120,6 +123,8 @@ def edit_food(food_id):
                     food["category"] = body["category"].strip()
                 if "weight" in body:
                     food["weight"] = max(1, min(999, int(body["weight"])))
+                if "disabled" in body:
+                    food["disabled"] = bool(body["disabled"])
                 if "notes" in body:
                     food["notes"] = body["notes"]
 
@@ -234,6 +239,27 @@ def update_settings():
     return jsonify(s)
 
 
+# ── Weekly plans ──────────────────────────────────────────────────────────────
+
+@app.route("/api/plan/<mode>", methods=["GET"])
+def get_plan(mode):
+    return jsonify(load_plans().get(mode, []))
+
+
+@app.route("/api/plan/<mode>", methods=["PUT"])
+def update_plan(mode):
+    if mode not in ("eatOut", "cookAtHome"):
+        return jsonify({"error": "Invalid mode"}), 400
+    body = request.get_json(silent=True)
+    if not isinstance(body, list):
+        return jsonify({"error": "Plan must be a list"}), 400
+    with _lock:
+        plans = load_plans()
+        plans[mode] = body
+        save_plans(plans)
+    return jsonify(body)
+
+
 # ── Config export / import ────────────────────────────────────────────────────
 
 @app.route("/api/config/default")
@@ -271,6 +297,7 @@ def clear_config():
     with _lock:
         save_foods([])
         save_settings(DEFAULT_SETTINGS.copy())
+        save_plans({})
     return jsonify({"foods": [], "settings": load_settings()})
 
 
